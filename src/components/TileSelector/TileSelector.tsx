@@ -18,33 +18,43 @@ const TileSelector = ({ onTileSelect, getTileCount }: TileSelectorProps) => {
     display: '',
   });
 
-  // 組合所有牌，按照 5x9 固定順序排列（直式佈局）
+  // 組合所有牌，按照 6x8 固定順序排列（直式佈局）
+  // 總共 48 格，42 張牌 + 6 個空位
   const allTiles = [
-    // 第1欄: 1萬~9萬 (9張)
-    ...ALL_TILES.wan,
-    // 第2欄: 1條~9條 (9張)
-    ...ALL_TILES.tiao,
-    // 第3欄: 1筒~9筒 (9張)
-    ...ALL_TILES.tong,
-    // 第4欄: 東南西北中發白 + 2空位 (9張)
-    ...ALL_TILES.wind,          // 4張風
-    ...ALL_TILES.dragon,        // 3張箭
-    createPlaceholder('1'),
-    createPlaceholder('2'),
-    // 第5欄: 8張花 + 1空位 (9張)
-    ...ALL_TILES.flower,        // 8張花
-    createPlaceholder('3'),
+    // 第1欄: 1-8萬 (8張)
+    ALL_TILES.wan[0], ALL_TILES.wan[1], ALL_TILES.wan[2], ALL_TILES.wan[3],
+    ALL_TILES.wan[4], ALL_TILES.wan[5], ALL_TILES.wan[6], ALL_TILES.wan[7],
+    // 第2欄: 9萬 + 1-7條 (8張)
+    ALL_TILES.wan[8],
+    ALL_TILES.tiao[0], ALL_TILES.tiao[1], ALL_TILES.tiao[2], ALL_TILES.tiao[3],
+    ALL_TILES.tiao[4], ALL_TILES.tiao[5], ALL_TILES.tiao[6],
+    // 第3欄: 8-9條 + 1-6筒 (8張)
+    ALL_TILES.tiao[7], ALL_TILES.tiao[8],
+    ALL_TILES.tong[0], ALL_TILES.tong[1], ALL_TILES.tong[2], ALL_TILES.tong[3],
+    ALL_TILES.tong[4], ALL_TILES.tong[5],
+    // 第4欄: 7-9筒 + 東南西北中 (8張)
+    ALL_TILES.tong[6], ALL_TILES.tong[7], ALL_TILES.tong[8],
+    ALL_TILES.wind[0], ALL_TILES.wind[1], ALL_TILES.wind[2], ALL_TILES.wind[3],
+    ALL_TILES.dragon[0],
+    // 第5欄: 發白 + 春夏秋冬梅蘭 (8張)
+    ALL_TILES.dragon[1], ALL_TILES.dragon[2],
+    ALL_TILES.flower[0], ALL_TILES.flower[1], ALL_TILES.flower[2], ALL_TILES.flower[3],
+    ALL_TILES.flower[4], ALL_TILES.flower[5],
+    // 第6欄: 菊竹 + 6空位 (8張)
+    ALL_TILES.flower[6], ALL_TILES.flower[7],
+    createPlaceholder('1'), createPlaceholder('2'), createPlaceholder('3'),
+    createPlaceholder('4'), createPlaceholder('5'), createPlaceholder('6'),
   ];
 
   return (
     <div className="flex-1 flex flex-col bg-gradient-to-b from-gray-50 to-white rounded-t-3xl shadow-2xl overflow-hidden min-h-0">
-      {/* 牌面網格 - 固定 5 欄 x 9 列（直式佈局）*/}
+      {/* 牌面網格 - 固定 6 欄 x 8 列（直式佈局）*/}
       <div className="flex-1 p-2 min-h-0">
         <motion.div
           className="grid gap-1.5 w-full h-full"
           style={{
-            gridTemplateColumns: 'repeat(5, 1fr)',
-            gridTemplateRows: 'repeat(9, 1fr)',
+            gridTemplateColumns: 'repeat(6, 1fr)',
+            gridTemplateRows: 'repeat(8, 1fr)',
           }}
           variants={staggerContainer}
           initial="initial"

@@ -18,27 +18,33 @@ const TileSelector = ({ onTileSelect, getTileCount }: TileSelectorProps) => {
     display: '',
   });
 
-  // 組合所有牌，按照固定順序排列
+  // 組合所有牌，按照 5x9 固定順序排列（直式佈局）
   const allTiles = [
-    ...ALL_TILES.wan,           // 列1: 9 張萬
-    ...ALL_TILES.tiao,          // 列2: 9 張條
-    ...ALL_TILES.tong,          // 列3: 9 張筒
-    ...ALL_TILES.wind,          // 列4: 4 張風
-    ...ALL_TILES.dragon,        // 列4: 3 張箭
-    createPlaceholder('1'),     // 列4: 空位1
-    createPlaceholder('2'),     // 列4: 空位2（補滿9格）
-    ...ALL_TILES.flower,        // 列5: 8 張花
+    // 第1欄: 1萬~9萬 (9張)
+    ...ALL_TILES.wan,
+    // 第2欄: 1條~9條 (9張)
+    ...ALL_TILES.tiao,
+    // 第3欄: 1筒~9筒 (9張)
+    ...ALL_TILES.tong,
+    // 第4欄: 東南西北中發白 + 2空位 (9張)
+    ...ALL_TILES.wind,          // 4張風
+    ...ALL_TILES.dragon,        // 3張箭
+    createPlaceholder('1'),
+    createPlaceholder('2'),
+    // 第5欄: 8張花 + 1空位 (9張)
+    ...ALL_TILES.flower,        // 8張花
+    createPlaceholder('3'),
   ];
 
   return (
     <div className="flex-1 flex flex-col bg-gradient-to-b from-gray-50 to-white rounded-t-3xl shadow-2xl overflow-hidden min-h-0">
-      {/* 牌面網格 - 固定 9 列 x 5 行 */}
+      {/* 牌面網格 - 固定 5 欄 x 9 列（直式佈局）*/}
       <div className="flex-1 p-4 min-h-0">
         <motion.div
           className="grid gap-2 w-full h-full"
           style={{
-            gridTemplateColumns: 'repeat(9, 1fr)',
-            gridTemplateRows: 'repeat(5, 1fr)',
+            gridTemplateColumns: 'repeat(5, 1fr)',
+            gridTemplateRows: 'repeat(9, 1fr)',
           }}
           variants={staggerContainer}
           initial="initial"

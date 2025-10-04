@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Tile, TilePosition } from '../../types';
 import { STANDARD_HAND_SIZE } from '../../constants/rules';
@@ -10,9 +11,14 @@ interface HandDisplayProps {
   inputMode: TilePosition;
   onRemoveTile: (index: number, position: TilePosition) => void;
   onToggleInputMode: () => void;
+  onOpenSettings: () => void;
+  onSetInputMode: (mode: TilePosition) => void;
 }
 
-const HandDisplay = ({ handTiles, exposedTiles, inputMode, onRemoveTile, onToggleInputMode }: HandDisplayProps) => {
+const HandDisplay = ({ handTiles, exposedTiles, inputMode, onRemoveTile, onOpenSettings, onSetInputMode }: HandDisplayProps) => {
+  // 追蹤最後點擊的牌（用於實現二次點擊移除）
+  const [lastClickedTile, setLastClickedTile] = useState<{ position: TilePosition; index: number } | null>(null);
+
   // 計算不含花牌的牌數
   const handCountWithoutFlower = handTiles.filter(tile => tile.type !== 'flower').length;
   const exposedCountWithoutFlower = exposedTiles.filter(tile => tile.type !== 'flower').length;
@@ -24,11 +30,23 @@ const HandDisplay = ({ handTiles, exposedTiles, inputMode, onRemoveTile, onToggl
 
   const isOverLimit = totalCountWithoutFlower > STANDARD_HAND_SIZE;
 
-  const renderTiles = (tiles: Tile[], position: TilePosition, emptyMessage: string) => {
+  // 處理牌的點擊（二次點擊移除）
+  const handleTileClick = (index: number, position: TilePosition) => {
+    if (lastClickedTile?.position === position && lastClickedTile?.index === index) {
+      // 第二次點擊同一張牌 → 移除
+      onRemoveTile(index, position);
+      setLastClickedTile(null);
+    } else {
+      // 第一次點擊 → 記錄
+      setLastClickedTile({ position, index });
+    }
+  };
+
+  const renderTiles = (tiles: Tile[], position: TilePosition, emptyMessage: string, tileSize: { width: number; height: number }) => {
     if (tiles.length === 0) {
       return (
         <motion.div
-          className="w-full flex items-center justify-center text-gray-400 text-sm py-4"
+          className="w-full text-gray-400 text-xs py-2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         >
@@ -40,13 +58,16 @@ const HandDisplay = ({ handTiles, exposedTiles, inputMode, onRemoveTile, onToggl
     return tiles.map((tile, index) => {
       const svgPath = getTileSvgPath(tile.type, tile.value);
       const hasImage = !!svgPath;
+      const isLastClicked = lastClickedTile?.position === position && lastClickedTile?.index === index;
 
       return (
         <motion.button
           key={`${position}-${tile.id}-${index}`}
-          onClick={() => onRemoveTile(index, position)}
-          className="relative bg-gradient-to-br from-white via-gray-50 to-gray-100 border-2 border-gray-300 rounded-lg hover:border-red-400 hover:bg-red-50 transition-colors group shadow-md hover:shadow-lg overflow-hidden"
-          style={{ width: '48px', height: '60px' }}
+          onClick={() => handleTileClick(index, position)}
+          className={`relative bg-gradient-to-br from-white via-gray-50 to-gray-100 border-2 rounded-lg transition-all group shadow-md overflow-hidden ${
+            isLastClicked ? 'border-yellow-400 shadow-yellow-200' : 'border-gray-300 hover:border-red-400 hover:bg-red-50'
+          }`}
+          style={{ width: `${tileSize.width}px`, height: `${tileSize.height}px` }}
           variants={tileEntry}
           initial="initial"
           animate="animate"
@@ -61,14 +82,16 @@ const HandDisplay = ({ handTiles, exposedTiles, inputMode, onRemoveTile, onToggl
                 className="w-full h-full object-contain"
               />
             ) : (
-              <span className={`text-lg font-bold ${getTileColor(tile.type)}`}>
+              <span className={`text-sm font-bold ${getTileColor(tile.type)}`}>
                 {tile.display}
               </span>
             )}
           </div>
-          <div className="absolute -top-1.5 -right-1.5 bg-gradient-to-br from-red-500 to-red-600 text-white w-5 h-5 rounded-full items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity hidden group-hover:flex shadow-lg">
-            ✕
-          </div>
+          {isLastClicked && (
+            <div className="absolute -top-1 -right-1 bg-gradient-to-br from-yellow-400 to-yellow-500 text-white w-4 h-4 rounded-full flex items-center justify-center text-xs shadow-lg">
+              ✓
+            </div>
+          )}
         </motion.button>
       );
     });
@@ -76,29 +99,39 @@ const HandDisplay = ({ handTiles, exposedTiles, inputMode, onRemoveTile, onToggl
 
   return (
     <div className="bg-gradient-to-b from-white to-gray-50 shadow-lg border-b border-gray-200 shrink-0">
-      <div className="px-4 py-3">
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-3">
-            {/* 切換按鈕 */}
-            <motion.button
-              onClick={onToggleInputMode}
-              className="p-2 rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 shadow-[0_2px_0_0_rgba(0,0,0,0.1)] active:shadow-[0_1px_0_0_rgba(0,0,0,0.1)] active:translate-y-[1px] border-t border-white/50"
-              whileTap={{ y: 1 }}
-            >
-              <img
-                src={inputMode === 'hand' ? '/icons/hand-tiles.svg' : '/icons/exposed-tiles.svg'}
-                alt={inputMode === 'hand' ? '輸入手牌' : '輸入門前'}
-                className="w-6 h-6"
-              />
-            </motion.button>
-            <div className="text-sm font-medium text-gray-600">
-              {inputMode === 'hand' ? '輸入手牌' : '輸入門前'}
+      <div className="px-3 py-2">
+        {isOverLimit && (
+          <motion.div
+            className="mb-2 text-xs text-red-500 font-medium"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            ⚠️ 超過 {STANDARD_HAND_SIZE} 張，請移除多餘的牌
+          </motion.div>
+        )}
+
+        {/* 門前牌區域 + 控制區（同一列）*/}
+        <div className="flex items-start justify-between mb-1">
+          {/* 左側：門前區域 */}
+          <div
+            className="flex-1 cursor-pointer"
+            onClick={() => onSetInputMode('exposed')}
+          >
+            <h3 className={`text-xs font-medium mb-1 ${inputMode === 'exposed' ? 'text-blue-600' : 'text-gray-500'}`}>
+              門前 {inputMode === 'exposed' && '●'}
+            </h3>
+            <div className="flex flex-wrap gap-1.5 min-h-[45px]">
+              <AnimatePresence>
+                {renderTiles(exposedTiles, 'exposed', '點此輸入門前牌', { width: 32, height: 40 })}
+              </AnimatePresence>
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          {/* 右側：控制區 */}
+          <div className="flex flex-col items-end gap-1 ml-3">
+            {/* 張數顯示 */}
             <div className="flex flex-col items-end">
-              <div className={`text-2xl font-bold ${
+              <div className={`text-xl font-bold ${
                 isOverLimit ? 'text-red-500' : totalCountWithoutFlower === STANDARD_HAND_SIZE ? 'text-green-600' : 'text-gray-600'
               }`}>
                 {totalCountWithoutFlower}/{STANDARD_HAND_SIZE}
@@ -109,12 +142,14 @@ const HandDisplay = ({ handTiles, exposedTiles, inputMode, onRemoveTile, onToggl
                 </div>
               )}
             </div>
+            {/* 設定按鈕 */}
             <motion.button
-              className="p-2 rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 shadow-[0_2px_0_0_rgba(0,0,0,0.1)] active:shadow-[0_1px_0_0_rgba(0,0,0,0.1)] active:translate-y-[1px] border-t border-white/50"
+              onClick={onOpenSettings}
+              className="p-1.5 rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 shadow-[0_2px_0_0_rgba(0,0,0,0.1)] active:shadow-[0_1px_0_0_rgba(0,0,0,0.1)] active:translate-y-[1px] border-t border-white/50"
               whileTap={{ y: 1 }}
             >
               <svg
-                className="w-5 h-5 text-gray-700"
+                className="w-4 h-4 text-gray-700"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -136,32 +171,17 @@ const HandDisplay = ({ handTiles, exposedTiles, inputMode, onRemoveTile, onToggl
           </div>
         </div>
 
-        {isOverLimit && (
-          <motion.div
-            className="mb-2 text-sm text-red-500 font-medium"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            ⚠️ 超過 {STANDARD_HAND_SIZE} 張，請移除多餘的牌
-          </motion.div>
-        )}
-
-        {/* 門前牌 */}
-        <div className="mb-2">
-          <h3 className="text-xs font-medium text-gray-500 mb-1">門前</h3>
-          <div className="flex flex-wrap gap-2 min-h-[70px] justify-center">
+        {/* 手牌區域（靠左）*/}
+        <div
+          className="cursor-pointer"
+          onClick={() => onSetInputMode('hand')}
+        >
+          <h3 className={`text-xs font-medium mb-1 ${inputMode === 'hand' ? 'text-blue-600' : 'text-gray-500'}`}>
+            手牌 {inputMode === 'hand' && '●'}
+          </h3>
+          <div className="flex flex-wrap gap-2 min-h-[65px]">
             <AnimatePresence>
-              {renderTiles(exposedTiles, 'exposed', '點選下方牌面並切換到「輸入門前」模式')}
-            </AnimatePresence>
-          </div>
-        </div>
-
-        {/* 手牌 */}
-        <div>
-          <h3 className="text-xs font-medium text-gray-500 mb-1">手牌</h3>
-          <div className="flex flex-wrap gap-2 min-h-[70px] justify-center">
-            <AnimatePresence>
-              {renderTiles(handTiles, 'hand', '點選下方牌面並切換到「輸入手牌」模式')}
+              {renderTiles(handTiles, 'hand', '點此輸入手牌', { width: 48, height: 60 })}
             </AnimatePresence>
           </div>
         </div>

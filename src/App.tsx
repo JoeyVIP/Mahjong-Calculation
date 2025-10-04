@@ -1,13 +1,16 @@
 import { useState, useCallback } from 'react'
-import { Tile, TilePosition } from './types'
-import Header from './components/Header/Header'
+import { Tile, TilePosition, GameSettings } from './types'
+import { DEFAULT_GAME_SETTINGS } from './constants/rules'
 import HandDisplay from './components/HandDisplay/HandDisplay'
 import TileSelector from './components/TileSelector/TileSelector'
+import SettingsPanel from './components/SettingsPanel/SettingsPanel'
 
 function App() {
   const [handTiles, setHandTiles] = useState<Tile[]>([]);
   const [exposedTiles, setExposedTiles] = useState<Tile[]>([]);
   const [inputMode, setInputMode] = useState<TilePosition>('hand');
+  const [settings, setSettings] = useState<GameSettings>(DEFAULT_GAME_SETTINGS);
+  const [showSettings, setShowSettings] = useState(false);
 
   // 計算特定牌的已選數量（包含手牌和門前）
   const getTileCount = useCallback((tileId: string): number => {
@@ -41,6 +44,11 @@ function App() {
     }
   }, []);
 
+  // 更新設定
+  const handleSettingsChange = useCallback((newSettings: Partial<GameSettings>) => {
+    setSettings(prev => ({ ...prev, ...newSettings }));
+  }, []);
+
   return (
     <div className="h-screen flex flex-col bg-gradient-to-br from-mahjong-green-dark to-mahjong-green-light">
       <main className="flex-1 flex flex-col min-h-0">
@@ -50,6 +58,8 @@ function App() {
           inputMode={inputMode}
           onRemoveTile={handleRemoveTile}
           onToggleInputMode={() => setInputMode(prev => prev === 'hand' ? 'exposed' : 'hand')}
+          onOpenSettings={() => setShowSettings(true)}
+          onSetInputMode={setInputMode}
         />
 
         <TileSelector
@@ -57,6 +67,29 @@ function App() {
           getTileCount={getTileCount}
         />
       </main>
+
+      {/* 設定面板浮動視窗 */}
+      {showSettings && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="max-w-md w-full max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-2xl font-bold text-white">遊戲設定</h2>
+              <button
+                onClick={() => setShowSettings(false)}
+                className="text-white bg-white/20 hover:bg-white/30 rounded-full p-2"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <SettingsPanel
+              settings={settings}
+              onSettingsChange={handleSettingsChange}
+            />
+          </div>
+        </div>
+      )}
     </div>
   )
 }

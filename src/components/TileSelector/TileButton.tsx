@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Tile } from '../../types';
-import { buttonTap, staggerItem } from '../../constants/animations';
+import { staggerItem } from '../../constants/animations';
 import { getTileSvgPath } from '../../utils/tileImages';
 
 interface TileButtonProps {

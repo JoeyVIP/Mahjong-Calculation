@@ -1,4 +1,4 @@
-import { Tile, TileType } from '../types';
+import { Tile } from '../types';
 
 // 產生萬子牌
 export const generateWanTiles = (): Tile[] => {

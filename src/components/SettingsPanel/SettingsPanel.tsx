@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Wind, WinType, GameSettings } from '../../types';
+import { Wind, GameSettings } from '../../types';
 
 interface SettingsPanelProps {
   settings: GameSettings;

@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react'
 import { Tile, TilePosition, GameSettings } from './types'
 import { DEFAULT_GAME_SETTINGS } from './constants/rules'
+import { validateHand } from './utils/validator'
 import HandDisplay from './components/HandDisplay/HandDisplay'
 import TileSelector from './components/TileSelector/TileSelector'
 import SettingsPanel from './components/SettingsPanel/SettingsPanel'
@@ -105,6 +106,25 @@ function App() {
               settings={settings}
               onSettingsChange={handleSettingsChange}
             />
+
+            {/* 確認按鈕 */}
+            {isFull && (
+              <button
+                onClick={() => {
+                  const validation = validateHand(handTiles, exposedTiles);
+                  if (validation.isValid) {
+                    alert('胡牌有效！準備計算台數...');
+                    setShowSettings(false);
+                    // TODO: 進入結果展示階段
+                  } else {
+                    alert(`驗證失敗：${validation.errorMessage}`);
+                  }
+                }}
+                className="w-full mt-4 py-4 rounded-xl font-bold text-xl text-white bg-gradient-to-br from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 shadow-lg"
+              >
+                確認並計算
+              </button>
+            )}
           </div>
         </div>
       )}

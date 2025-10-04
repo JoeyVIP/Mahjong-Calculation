@@ -49,7 +49,7 @@ const TileSelector = ({ onTileSelect, getTileCount }: TileSelectorProps) => {
   return (
     <div className="flex-1 flex flex-col bg-gradient-to-b from-gray-50 to-white rounded-t-3xl shadow-2xl overflow-hidden min-h-0">
       {/* 牌面網格 - 固定 6 欄 x 8 列（直式佈局）*/}
-      <div className="flex-1 p-2 min-h-0">
+      <div className="flex-1 p-2 min-h-0 overflow-y-auto scrollbar-hide">
         <motion.div
           className="grid gap-1.5 w-full h-full"
           style={{

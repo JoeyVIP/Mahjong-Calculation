@@ -7,9 +7,12 @@ import TileButton from './TileButton';
 interface TileSelectorProps {
   onTileSelect: (tile: Tile) => void;
   getTileCount: (tileId: string) => number;
+  isFull: boolean;
+  onCalculate: () => void;
+  onClear: () => void;
 }
 
-const TileSelector = ({ onTileSelect, getTileCount }: TileSelectorProps) => {
+const TileSelector = ({ onTileSelect, getTileCount, isFull, onCalculate, onClear }: TileSelectorProps) => {
   // 創建空占位符
   const createPlaceholder = (id: string) => ({
     type: 'placeholder' as any,
@@ -47,7 +50,7 @@ const TileSelector = ({ onTileSelect, getTileCount }: TileSelectorProps) => {
   ];
 
   return (
-    <div className="flex-1 flex flex-col bg-gradient-to-b from-gray-50 to-white rounded-t-3xl shadow-2xl overflow-hidden min-h-0">
+    <div className="flex-1 flex flex-col bg-gradient-to-b from-gray-50 to-white rounded-t-3xl shadow-2xl overflow-hidden min-h-0 relative">
       {/* 牌面網格 - 固定 6 欄 x 8 列（直式佈局）*/}
       <div className="flex-1 p-2 min-h-0 overflow-y-auto scrollbar-hide">
         <motion.div
@@ -83,6 +86,36 @@ const TileSelector = ({ onTileSelect, getTileCount }: TileSelectorProps) => {
           </AnimatePresence>
         </motion.div>
       </div>
+
+      {/* 算台/清空按鈕覆蓋層 - 17張時顯示 */}
+      <AnimatePresence>
+        {isFull && (
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-b from-gray-50 to-white flex flex-col p-4 gap-3"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+          >
+            {/* 算台按鈕 - 3/4 高度 */}
+            <motion.button
+              onClick={onCalculate}
+              className="flex-[3] rounded-2xl font-bold text-3xl text-white bg-gradient-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 shadow-[0_8px_0_0_rgba(0,100,0,0.3)] active:shadow-[0_4px_0_0_rgba(0,100,0,0.3)] active:translate-y-[4px] border-t-4 border-white/30"
+              whileTap={{ y: 4 }}
+            >
+              算台
+            </motion.button>
+
+            {/* 清空按鈕 - 1/4 高度 */}
+            <motion.button
+              onClick={onClear}
+              className="flex-1 rounded-2xl font-bold text-xl text-white bg-gradient-to-br from-gray-400 to-gray-500 hover:from-gray-500 hover:to-gray-600 shadow-[0_4px_0_0_rgba(0,0,0,0.2)] active:shadow-[0_2px_0_0_rgba(0,0,0,0.2)] active:translate-y-[2px] border-t-4 border-white/30"
+              whileTap={{ y: 2 }}
+            >
+              清空
+            </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

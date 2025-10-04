@@ -52,6 +52,18 @@ function App() {
     setSettings(prev => ({ ...prev, ...newSettings }));
   }, []);
 
+  // 清空所有牌
+  const handleClearAll = useCallback(() => {
+    setHandTiles([]);
+    setExposedTiles([]);
+  }, []);
+
+  // 計算不含花牌的總數
+  const handCountWithoutFlower = handTiles.filter(tile => tile.type !== 'flower').length;
+  const exposedCountWithoutFlower = exposedTiles.filter(tile => tile.type !== 'flower').length;
+  const totalCountWithoutFlower = handCountWithoutFlower + exposedCountWithoutFlower;
+  const isFull = totalCountWithoutFlower === 17;
+
   return (
     <div className="h-screen flex flex-col bg-gradient-to-br from-mahjong-green-dark to-mahjong-green-light">
       <main className="flex-1 flex flex-col min-h-0">
@@ -68,6 +80,9 @@ function App() {
         <TileSelector
           onTileSelect={handleTileSelect}
           getTileCount={getTileCount}
+          isFull={isFull}
+          onCalculate={() => setShowSettings(true)}
+          onClear={handleClearAll}
         />
       </main>
 

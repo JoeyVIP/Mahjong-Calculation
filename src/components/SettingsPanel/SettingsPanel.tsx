@@ -14,13 +14,6 @@ const SettingsPanel = ({ settings, onSettingsChange }: SettingsPanelProps) => {
     { value: 'north', label: '北', color: 'from-gray-500 to-gray-600' },
   ];
 
-  const baseConfigs = [
-    { base: 50, fan: 20, label: '50/20' },
-    { base: 100, fan: 20, label: '100/20' },
-    { base: 100, fan: 50, label: '100/50' },
-    { base: 200, fan: 50, label: '200/50' },
-    { base: 300, fan: 100, label: '300/100' },
-  ];
 
   return (
     <div className="bg-white shadow-lg rounded-2xl p-4 space-y-4">
@@ -142,26 +135,34 @@ const SettingsPanel = ({ settings, onSettingsChange }: SettingsPanelProps) => {
         </div>
       </div>
 
-      {/* 底台設定 */}
+      {/* 底台設定 - 輸入欄位 */}
       <div>
         <h3 className="text-sm font-bold text-gray-700 mb-2">底/台</h3>
-        <div className="grid grid-cols-3 gap-2">
-          {baseConfigs.map((config) => (
-            <motion.button
-              key={config.label}
-              onClick={() => onSettingsChange({ baseAmount: config.base, fanAmount: config.fan })}
-              className={`
-                py-3 rounded-xl font-bold text-white text-sm
-                shadow-[0_4px_0_0_rgba(0,0,0,0.2)] active:shadow-[0_2px_0_0_rgba(0,0,0,0.2)] active:translate-y-[2px]
-                ${settings.baseAmount === config.base && settings.fanAmount === config.fan
-                  ? 'bg-gradient-to-br from-teal-500 to-teal-600'
-                  : 'bg-gradient-to-br from-gray-300 to-gray-400'}
-              `}
-              whileTap={{ y: 2 }}
-            >
-              {config.label}
-            </motion.button>
-          ))}
+        <div className="grid grid-cols-2 gap-3">
+          {/* 底金額輸入 */}
+          <div>
+            <label className="text-xs text-gray-500 mb-1 block">底（元）</label>
+            <input
+              type="number"
+              value={settings.baseAmount}
+              onChange={(e) => onSettingsChange({ baseAmount: parseInt(e.target.value) || 0 })}
+              className="w-full px-3 py-3 rounded-xl border-2 border-gray-300 focus:border-teal-500 focus:outline-none text-lg font-bold text-center"
+              placeholder="50"
+              min="0"
+            />
+          </div>
+          {/* 台金額輸入 */}
+          <div>
+            <label className="text-xs text-gray-500 mb-1 block">每台（元）</label>
+            <input
+              type="number"
+              value={settings.fanAmount}
+              onChange={(e) => onSettingsChange({ fanAmount: parseInt(e.target.value) || 0 })}
+              className="w-full px-3 py-3 rounded-xl border-2 border-gray-300 focus:border-teal-500 focus:outline-none text-lg font-bold text-center"
+              placeholder="20"
+              min="0"
+            />
+          </div>
         </div>
       </div>
     </div>

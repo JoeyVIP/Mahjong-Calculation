@@ -27,7 +27,10 @@ function App() {
     const maxCount = tile.type === 'flower' ? 1 : 4;
 
     if (currentCount < maxCount) {
-      if (inputMode === 'hand') {
+      // 花牌強制進入門前，其他牌根據 inputMode 決定
+      if (tile.type === 'flower') {
+        setExposedTiles(prev => [...prev, tile]);
+      } else if (inputMode === 'hand') {
         setHandTiles(prev => [...prev, tile]);
       } else {
         setExposedTiles(prev => [...prev, tile]);

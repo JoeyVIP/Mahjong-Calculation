@@ -39,9 +39,9 @@ const TileSelector = ({ onTileSelect, getTileCount }: TileSelectorProps) => {
   return (
     <div className="flex-1 flex flex-col bg-gradient-to-b from-gray-50 to-white rounded-t-3xl shadow-2xl overflow-hidden min-h-0">
       {/* 牌面網格 - 固定 5 欄 x 9 列（直式佈局）*/}
-      <div className="flex-1 p-4 min-h-0">
+      <div className="flex-1 p-2 min-h-0">
         <motion.div
-          className="grid gap-2 w-full h-full"
+          className="grid gap-1.5 w-full h-full"
           style={{
             gridTemplateColumns: 'repeat(5, 1fr)',
             gridTemplateRows: 'repeat(9, 1fr)',

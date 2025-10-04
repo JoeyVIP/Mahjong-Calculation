@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg fill-rule="evenodd" height="400.0" preserveAspectRatio="xMinYMin meet" version="1.0" viewBox="0 0 300 400" width="300.0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect height="400.0" width="300.0" x="0" y="0"/>
+	</clipPath>
+	<g id="group" style="clip-path: url(#clip)" transform="scale(1,-1) translate(0,-400)">
+		<g transform="">
+			<g transform=" matrix(1,0,0,-1,0,400)">
+				<g transform=" matrix(1,0,0,1,0,-652.36216)">
+					<rect height="400.77808000000005" rx="40.0" ry="40.0" style="stroke: none; stroke-linecap: round; stroke-width: 10.0; fill: rgb(96%,94%,92%); fill-rule: evenodd;" width="300.05896" x="0.0" y="652.28351"/>
+					<g transform=" matrix(1,0,0,1,-0,-0.000001)">
+						<g transform="">
+							<path d="M -4.768783 775.07096 C -9.650184 741.99485 -16.84552 674.23676 -1.278872 652.0641 C 18.998297 625.94378 233.50094 631.63117 263.31435 653.90999 C 276.21398 662.64856 70.349579 663.12124 47.099353 691.74479 C 24.390958 719.11242 0.650608 818.18718 -4.768783 775.07096 Z " style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+						</g>
+					</g>
+					<g transform=" matrix(-1,0,0,-1,451.93806,1977.887)">
+						<g transform="">
+							<path d="M 151.73588 1025.0177 C 148.40905 1015.7039 141.48745 956.56381 157.05409 934.39115 C 177.33126 908.27083 376.48967 917.93319 388.60915 924.45931 C 399.68348 929.77633 210.00549 924.51821 183.75789 959.32577 C 162.1644 989.32637 157.25703 1041.5042 151.73588 1025.0177 Z " style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,0%,0%); fill-rule: evenodd; fill-opacity: 0.19607843;"/>
+						</g>
+					</g>
+				</g>
+			</g>
+		</g>
+		<g transform=" matrix(0.8,0,0,0.8,30,40)">
+			<g transform=" matrix(1,0,0,-1,0,400)">
+				<g transform=" matrix(1,0,0,1,0,-652.36216)">
+					<g transform=" matrix(1,0,0,1,0,0.373911)">
+						<g transform="">
+							<circle cx="237.42392" cy="714.98895" r="61.117695" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+							<circle cx="62.768543" cy="714.98895" r="61.117695" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+							<circle cx="150.09624" cy="714.98895" r="61.117695" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+							<circle cx="150.09624" cy="714.98895" r="46.094604" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+							<circle cx="150.09624" cy="714.98895" r="39.692886" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(0%,0%,21%); fill-rule: evenodd;"/>
+							<g transform=" matrix(0.999976,-0.006891,-0.006891,-0.999976,0,0)">
+								<g transform="">
+									<path d="M 166.71477 -716.00623 C 166.714772 -704.26366 157.312654 -694.683083 145.57216 -694.46232 C 133.831667 -694.241552 124.076021 -703.461891 123.63457 -715.19616 C 123.193121 -726.930426 132.228418 -736.85769 143.95231 -737.51967 C 155.6762 -738.181654 165.771578 -729.334594 166.65386 -717.62522 " style="stroke: rgb(100%,100%,100%); stroke-linecap: round; stroke-width: 6.75044918; fill: none; fill-rule: evenodd; stroke-dasharray: 13.50089867, 13.50089867;"/>
+								</g>
+							</g>
+							<circle cx="150.09624" cy="714.98895" r="8.0316467" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+							<circle cx="150.09624" cy="714.98895" r="3.6676245" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(0%,0%,21%); fill-rule: evenodd;"/>
+							<circle cx="62.768543" cy="714.98895" r="46.094604" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+							<circle cx="62.768543" cy="714.98895" r="39.692886" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(0%,0%,21%); fill-rule: evenodd;"/>
+							<g transform=" matrix(0.999976,-0.006891,-0.006891,-0.999976,0,0)">
+								<g transform="">
+									<path d="M 79.389147 -715.40442 C 79.389149 -703.661851 69.987033 -694.081275 58.246541 -693.86051 C 46.506049 -693.639745 36.750406 -702.860082 36.308955 -714.59435 C 35.8675 -726.328617 44.902795 -736.255886 56.626688 -736.91787 C 68.350582 -737.579854 78.445962 -728.732788 79.328239 -717.02341 " style="stroke: rgb(100%,100%,100%); stroke-linecap: round; stroke-width: 6.75044918; fill: none; fill-rule: evenodd; stroke-dasharray: 13.50089867, 13.50089867;"/>
+								</g>
+							</g>
+							<circle cx="62.768543" cy="714.98895" r="8.0316467" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+							<circle cx="62.768543" cy="714.98895" r="3.6676245" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(0%,0%,21%); fill-rule: evenodd;"/>
+							<circle cx="237.42392" cy="714.98895" r="46.094604" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+							<circle cx="237.42392" cy="714.98895" r="39.692886" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(0%,0%,21%); fill-rule: evenodd;"/>
+							<g transform=" matrix(0.999976,-0.006891,-0.006891,-0.999976,0,0)">
+								<g transform="">
+									<path d="M 254.04037 -716.60803 C 254.040367 -704.865467 244.638256 -695.284898 232.89777 -695.06413 C 221.15728 -694.843362 211.401636 -704.063695 210.96018 -715.79796 C 210.518725 -727.532226 219.554018 -737.459494 231.27791 -738.12148 C 243.0018 -738.783464 253.097178 -729.936404 253.97946 -718.22703 " style="stroke: rgb(100%,100%,100%); stroke-linecap: round; stroke-width: 6.75044918; fill: none; fill-rule: evenodd; stroke-dasharray: 13.50089867, 13.50089867;"/>
+								</g>
+							</g>
+							<circle cx="237.42392" cy="714.98895" r="8.0316467" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+							<circle cx="237.42392" cy="714.98895" r="3.6676245" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(0%,0%,21%); fill-rule: evenodd;"/>
+						</g>
+						<g transform=" matrix(1,0,0,1,0,274)">
+							<circle cx="237.42392" cy="714.98895" r="61.117695" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+							<circle cx="62.768543" cy="714.98895" r="61.117695" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+							<circle cx="150.09624" cy="714.98895" r="61.117695" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+							<circle cx="150.09624" cy="714.98895" r="46.094604" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+							<circle cx="150.09624" cy="714.98895" r="39.692886" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(0%,0%,21%); fill-rule: evenodd;"/>
+							<g transform=" matrix(0.999976,-0.006891,-0.006891,-0.999976,0,0)">
+								<g transform="">
+									<path d="M 166.71477 -716.00623 C 166.714772 -704.26366 157.312654 -694.683083 145.57216 -694.46232 C 133.831667 -694.241552 124.076021 -703.461891 123.63457 -715.19616 C 123.193121 -726.930426 132.228418 -736.85769 143.95231 -737.51967 C 155.6762 -738.181654 165.771578 -729.334594 166.65386 -717.62522 " style="stroke: rgb(100%,100%,100%); stroke-linecap: round; stroke-width: 6.75044918; fill: none; fill-rule: evenodd; stroke-dasharray: 13.50089867, 13.50089867;"/>
+								</g>
+							</g>
+							<circle cx="150.09624" cy="714.98895" r="8.0316467" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+							<circle cx="150.09624" cy="714.98895" r="3.6676245" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(0%,0%,21%); fill-rule: evenodd;"/>
+							<circle cx="62.768543" cy="714.98895" r="46.094604" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+							<circle cx="62.768543" cy="714.98895" r="39.692886" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(0%,0%,21%); fill-rule: evenodd;"/>
+							<g transform=" matrix(0.999976,-0.006891,-0.006891,-0.999976,0,0)">
+								<g transform="">
+									<path d="M 79.389147 -715.40442 C 79.389149 -703.661851 69.987033 -694.081275 58.246541 -693.86051 C 46.506049 -693.639745 36.750406 -702.860082 36.308955 -714.59435 C 35.8675 -726.328617 44.902795 -736.255886 56.626688 -736.91787 C 68.350582 -737.579854 78.445962 -728.732788 79.328239 -717.02341 " style="stroke: rgb(100%,100%,100%); stroke-linecap: round; stroke-width: 6.75044918; fill: none; fill-rule: evenodd; stroke-dasharray: 13.50089867, 13.50089867;"/>
+								</g>
+							</g>
+							<circle cx="62.768543" cy="714.98895" r="8.0316467" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+							<circle cx="62.768543" cy="714.98895" r="3.6676245" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(0%,0%,21%); fill-rule: evenodd;"/>
+							<circle cx="237.42392" cy="714.98895" r="46.094604" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+							<circle cx="237.42392" cy="714.98895" r="39.692886" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(0%,0%,21%); fill-rule: evenodd;"/>
+							<g transform=" matrix(0.999976,-0.006891,-0.006891,-0.999976,0,0)">
+								<g transform="">
+									<path d="M 254.04037 -716.60803 C 254.040367 -704.865467 244.638256 -695.284898 232.89777 -695.06413 C 221.15728 -694.843362 211.401636 -704.063695 210.96018 -715.79796 C 210.518725 -727.532226 219.554018 -737.459494 231.27791 -738.12148 C 243.0018 -738.783464 253.097178 -729.936404 253.97946 -718.22703 " style="stroke: rgb(100%,100%,100%); stroke-linecap: round; stroke-width: 6.75044918; fill: none; fill-rule: evenodd; stroke-dasharray: 13.50089867, 13.50089867;"/>
+								</g>
+							</g>
+							<circle cx="237.42392" cy="714.98895" r="8.0316467" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+							<circle cx="237.42392" cy="714.98895" r="3.6676245" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(0%,0%,21%); fill-rule: evenodd;"/>
+						</g>
+						<g transform="">
+							<circle cx="63.028664" cy="852.40082" r="61.117695" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+							<circle cx="237.68404" cy="852.40082" r="61.117695" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+							<circle cx="150.00279" cy="852.40082" r="61.117695" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+							<circle cx="150.00279" cy="852.40082" r="46.094604" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+							<circle cx="150.00279" cy="852.40082" r="39.692886" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(72%,23%,23%); fill-rule: evenodd;"/>
+							<g transform=" matrix(0.999976,-0.006891,-0.006891,-0.999976,0,0)">
+								<g transform="">
+									<path d="M 165.67438 -853.41418 C 165.674377 -841.671614 156.27226 -832.091043 144.53177 -831.87028 C 132.79128 -831.649512 123.035636 -840.869845 122.59418 -852.60411 C 122.152725 -864.33838 131.188024 -874.26565 142.91192 -874.92763 C 154.63581 -875.589614 164.731188 -866.742554 165.61347 -855.03318 " style="stroke: rgb(100%,100%,100%); stroke-linecap: round; stroke-width: 6.75044918; fill: none; fill-rule: evenodd; stroke-dasharray: 13.50089867, 13.50089867;"/>
+								</g>
+							</g>
+							<circle cx="150.00279" cy="852.40082" r="8.0316467" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+							<circle cx="150.00279" cy="852.40082" r="3.6676245" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(72%,23%,23%); fill-rule: evenodd;"/>
+							<circle cx="63.028664" cy="852.40082" r="46.094604" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+							<circle cx="63.028664" cy="852.40082" r="39.692886" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(72%,23%,23%); fill-rule: evenodd;"/>
+							<g transform=" matrix(0.999976,-0.006891,-0.006891,-0.999976,0,0)">
+								<g transform="">
+									<path d="M 78.702318 -852.81482 C 78.70232 -841.072251 69.300204 -831.491675 57.559712 -831.27091 C 45.81922 -831.050145 36.063577 -840.270482 35.622126 -852.00475 C 35.180671 -863.739017 44.215966 -873.666286 55.939859 -874.32827 C 67.663753 -874.990254 77.759133 -866.143188 78.64141 -854.43381 " style="stroke: rgb(100%,100%,100%); stroke-linecap: round; stroke-width: 6.75044918; fill: none; fill-rule: evenodd; stroke-dasharray: 13.50089867, 13.50089867;"/>
+								</g>
+							</g>
+							<circle cx="63.028664" cy="852.40082" r="8.0316467" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+							<circle cx="63.028664" cy="852.40082" r="3.6676245" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(72%,23%,23%); fill-rule: evenodd;"/>
+							<circle cx="237.68404" cy="852.40082" r="46.094604" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+							<circle cx="237.68404" cy="852.40082" r="39.692886" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(72%,23%,23%); fill-rule: evenodd;"/>
+							<g transform=" matrix(0.999976,-0.006891,-0.006891,-0.999976,0,0)">
+								<g transform="">
+									<path d="M 253.35354 -854.01843 C 253.353537 -842.275867 243.951426 -832.695298 232.21094 -832.47453 C 220.47045 -832.253762 210.714806 -841.474095 210.27335 -853.20836 C 209.831895 -864.942626 218.867188 -874.869894 230.59108 -875.53188 C 242.314974 -876.193869 252.410358 -867.346808 253.29264 -855.63743 " style="stroke: rgb(100%,100%,100%); stroke-linecap: round; stroke-width: 6.75044918; fill: none; fill-rule: evenodd; stroke-dasharray: 13.50089867, 13.50089867;"/>
+								</g>
+							</g>
+							<circle cx="237.68404" cy="852.40082" r="8.0316467" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+							<circle cx="237.68404" cy="852.40082" r="3.6676245" style="stroke: none; stroke-linecap: round; stroke-width: 8.0; fill: rgb(72%,23%,23%); fill-rule: evenodd;"/>
+						</g>
+					</g>
+				</g>
+			</g>
+		</g>
+	</g>
+</svg>

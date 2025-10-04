@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 120">
+  <!-- 背景 -->
+  <rect width="90" height="120" fill="#f8f9fa" stroke="#dee2e6" stroke-width="2"/>
+
+  <!-- 竹字 -->
+  <text x="45" y="70" font-family="serif" font-size="40" font-weight="bold" text-anchor="middle" fill="#228b22">竹</text>
+
+  <!-- 裝飾 - 竹葉 -->
+  <line x1="45" y1="15" x2="45" y2="35" stroke="#228b22" stroke-width="3"/>
+  <ellipse cx="40" cy="20" rx="8" ry="3" fill="#32cd32" opacity="0.6" transform="rotate(-30 40 20)"/>
+  <ellipse cx="50" cy="25" rx="8" ry="3" fill="#32cd32" opacity="0.6" transform="rotate(30 50 25)"/>
+  <ellipse cx="42" cy="30" rx="8" ry="3" fill="#32cd32" opacity="0.6" transform="rotate(-30 42 30)"/>
+
+  <!-- 數字4 -->
+  <text x="45" y="105" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#666">4</text>
+</svg>

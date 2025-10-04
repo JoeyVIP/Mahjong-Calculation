@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 120">
+  <!-- 背景 -->
+  <rect width="90" height="120" fill="#f8f9fa" stroke="#dee2e6" stroke-width="2"/>
+
+  <!-- 秋字 -->
+  <text x="45" y="70" font-family="serif" font-size="40" font-weight="bold" text-anchor="middle" fill="#d2691e">秋</text>
+
+  <!-- 裝飾 - 楓葉 -->
+  <path d="M45,18 L47,22 L51,23 L47,26 L48,30 L45,28 L42,30 L43,26 L39,23 L43,22 Z" fill="#ff6347" opacity="0.7"/>
+
+  <!-- 數字3 -->
+  <text x="45" y="105" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#666">3</text>
+</svg>

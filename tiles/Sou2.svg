@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg fill-rule="evenodd" height="400.0" preserveAspectRatio="xMinYMin meet" version="1.0" viewBox="0 0 300 400" width="300.0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect height="400.0" width="300.0" x="0" y="0"/>
+	</clipPath>
+	<g id="group" style="clip-path: url(#clip)" transform="scale(1,-1) translate(0,-400)">
+		<g transform="">
+			<g transform=" matrix(1,0,0,-1,0,400)">
+				<g transform=" matrix(1,0,0,1,0,-652.36216)">
+					<rect height="400.77808000000005" rx="40.0" ry="40.0" style="stroke: none; stroke-linecap: round; stroke-width: 10.0; fill: rgb(96%,94%,92%); fill-rule: evenodd;" width="300.05896" x="0.0" y="652.28351"/>
+					<g transform=" matrix(1,0,0,1,-0,-0.000001)">
+						<g transform="">
+							<path d="M -4.768783 775.07096 C -9.650184 741.99485 -16.84552 674.23676 -1.278872 652.0641 C 18.998297 625.94378 233.50094 631.63117 263.31435 653.90999 C 276.21398 662.64856 70.349579 663.12124 47.099353 691.74479 C 24.390958 719.11242 0.650608 818.18718 -4.768783 775.07096 Z " style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+						</g>
+					</g>
+					<g transform=" matrix(-1,0,0,-1,451.93806,1977.887)">
+						<g transform="">
+							<path d="M 151.73588 1025.0177 C 148.40905 1015.7039 141.48745 956.56381 157.05409 934.39115 C 177.33126 908.27083 376.48967 917.93319 388.60915 924.45931 C 399.68348 929.77633 210.00549 924.51821 183.75789 959.32577 C 162.1644 989.32637 157.25703 1041.5042 151.73588 1025.0177 Z " style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,0%,0%); fill-rule: evenodd; fill-opacity: 0.19607843;"/>
+						</g>
+					</g>
+				</g>
+			</g>
+		</g>
+		<g transform=" matrix(0.8,0,0,0.8,30,40)">
+			<g transform=" matrix(1,0,0,-1,0,400)">
+				<g transform=" matrix(1,0,0,1,0,-652.36216)">
+					<g transform="">
+						<g transform=" matrix(0.959157,0,0,0.959157,6.112593,26.80356)">
+							<ellipse cx="135.05489" cy="680.42645" rx="24.680116999999996" ry="19.09743100000003" style="stroke: none; stroke-linecap: round; stroke-width: 30.0; fill: rgb(0%,28%,0%); fill-rule: evenodd;"/>
+							<ellipse cx="164.01987" cy="680.42645" rx="24.680116999999996" ry="19.09743100000003" style="stroke: none; stroke-linecap: round; stroke-width: 30.0; fill: rgb(0%,28%,0%); fill-rule: evenodd;"/>
+							<ellipse cx="133.83817" cy="829.79926" rx="24.680116999999996" ry="19.09743100000003" style="stroke: none; stroke-linecap: round; stroke-width: 30.0; fill: rgb(0%,28%,0%); fill-rule: evenodd;"/>
+							<g transform="">
+								<path d="M 149.58492 818.81626 L 149.58492 684.14264 " style="stroke: rgb(0%,28%,0%); stroke-linecap: round; stroke-width: 55.00000381; fill: none; fill-rule: evenodd;"/>
+							</g>
+							<ellipse cx="165.64214" cy="829.79926" rx="24.680116999999996" ry="19.09743100000003" style="stroke: none; stroke-linecap: round; stroke-width: 30.0; fill: rgb(0%,28%,0%); fill-rule: evenodd;"/>
+							<ellipse cx="160.99481" cy="748.83081" rx="32.78653299999999" ry="25.370163000000048" style="stroke: none; stroke-linecap: round; stroke-width: 30.0; fill: rgb(0%,28%,0%); fill-rule: evenodd;"/>
+							<ellipse cx="138.32327" cy="748.83081" rx="32.78653299999999" ry="25.370163000000048" style="stroke: none; stroke-linecap: round; stroke-width: 30.0; fill: rgb(0%,28%,0%); fill-rule: evenodd;"/>
+							<g transform="">
+								<path d="M 149.58492 685.72349 L 149.58492 723.5659 " style="stroke: rgb(100%,100%,100%); stroke-linecap: round; stroke-width: 12.51099205; fill: none; fill-rule: evenodd;"/>
+							</g>
+							<g transform="">
+								<path d="M 149.58491 777.56215 L 149.58491 824.29588 " style="stroke: rgb(100%,100%,100%); stroke-linecap: round; stroke-width: 12.51099205; fill: none; fill-rule: evenodd;"/>
+							</g>
+							<ellipse cx="149.58495" cy="683.5329" rx="8.992001500000015" ry="8.697494499999948" style="stroke: none; stroke-linecap: round; stroke-width: 10.0; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+							<g transform="">
+								<path d="M 140.22861 761.81761 C 144.45686 755.37686 155.78829 755.65447 159.34683 761.81761 " style="stroke: rgb(100%,100%,100%); stroke-linecap: round; stroke-width: 10.42582703; fill: none; fill-rule: evenodd;"/>
+							</g>
+							<g transform="">
+								<path d="M 140.22861 743.53117 C 144.45686 737.09042 155.78829 737.36803 159.34683 743.53117 " style="stroke: rgb(100%,100%,100%); stroke-linecap: round; stroke-width: 10.42582703; fill: none; fill-rule: evenodd;"/>
+							</g>
+						</g>
+						<g transform=" matrix(0.959157,0,0,0.959157,6.112593,235.23614)">
+							<ellipse cx="135.05489" cy="680.42645" rx="24.680116999999996" ry="19.09743100000003" style="stroke: none; stroke-linecap: round; stroke-width: 30.0; fill: rgb(0%,28%,0%); fill-rule: evenodd;"/>
+							<ellipse cx="164.01987" cy="680.42645" rx="24.680116999999996" ry="19.09743100000003" style="stroke: none; stroke-linecap: round; stroke-width: 30.0; fill: rgb(0%,28%,0%); fill-rule: evenodd;"/>
+							<ellipse cx="133.83817" cy="829.79926" rx="24.680116999999996" ry="19.09743100000003" style="stroke: none; stroke-linecap: round; stroke-width: 30.0; fill: rgb(0%,28%,0%); fill-rule: evenodd;"/>
+							<g transform="">
+								<path d="M 149.58492 818.81626 L 149.58492 684.14264 " style="stroke: rgb(0%,28%,0%); stroke-linecap: round; stroke-width: 55.00000381; fill: none; fill-rule: evenodd;"/>
+							</g>
+							<ellipse cx="165.64214" cy="829.79926" rx="24.680116999999996" ry="19.09743100000003" style="stroke: none; stroke-linecap: round; stroke-width: 30.0; fill: rgb(0%,28%,0%); fill-rule: evenodd;"/>
+							<ellipse cx="160.99481" cy="748.83081" rx="32.78653299999999" ry="25.370163000000048" style="stroke: none; stroke-linecap: round; stroke-width: 30.0; fill: rgb(0%,28%,0%); fill-rule: evenodd;"/>
+							<ellipse cx="138.32327" cy="748.83081" rx="32.78653299999999" ry="25.370163000000048" style="stroke: none; stroke-linecap: round; stroke-width: 30.0; fill: rgb(0%,28%,0%); fill-rule: evenodd;"/>
+							<g transform="">
+								<path d="M 149.58492 685.72349 L 149.58492 723.5659 " style="stroke: rgb(100%,100%,100%); stroke-linecap: round; stroke-width: 12.51099221; fill: none; fill-rule: evenodd;"/>
+							</g>
+							<g transform="">
+								<path d="M 149.58491 777.56215 L 149.58491 824.29588 " style="stroke: rgb(100%,100%,100%); stroke-linecap: round; stroke-width: 12.51099205; fill: none; fill-rule: evenodd;"/>
+							</g>
+							<ellipse cx="149.58495" cy="683.5329" rx="8.992001500000015" ry="8.697494499999948" style="stroke: none; stroke-linecap: round; stroke-width: 10.0; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+							<g transform="">
+								<path d="M 140.22861 761.81761 C 144.45686 755.37686 155.78829 755.65447 159.34683 761.81761 " style="stroke: rgb(100%,100%,100%); stroke-linecap: round; stroke-width: 10.42582703; fill: none; fill-rule: evenodd;"/>
+							</g>
+							<g transform="">
+								<path d="M 140.22861 743.53117 C 144.45686 737.09042 155.78829 737.36803 159.34683 743.53117 " style="stroke: rgb(100%,100%,100%); stroke-linecap: round; stroke-width: 10.42582703; fill: none; fill-rule: evenodd;"/>
+							</g>
+						</g>
+					</g>
+				</g>
+			</g>
+		</g>
+	</g>
+</svg>

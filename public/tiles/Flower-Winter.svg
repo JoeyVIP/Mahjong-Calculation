@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 120">
+  <!-- 背景 -->
+  <rect width="90" height="120" fill="#f8f9fa" stroke="#dee2e6" stroke-width="2"/>
+
+  <!-- 冬字 -->
+  <text x="45" y="70" font-family="serif" font-size="40" font-weight="bold" text-anchor="middle" fill="#4682b4">冬</text>
+
+  <!-- 裝飾 - 雪花 -->
+  <line x1="45" y1="15" x2="45" y2="35" stroke="#87ceeb" stroke-width="2"/>
+  <line x1="35" y1="25" x2="55" y2="25" stroke="#87ceeb" stroke-width="2"/>
+  <line x1="38" y1="18" x2="52" y2="32" stroke="#87ceeb" stroke-width="2"/>
+  <line x1="52" y1="18" x2="38" y2="32" stroke="#87ceeb" stroke-width="2"/>
+
+  <!-- 數字4 -->
+  <text x="45" y="105" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#666">4</text>
+</svg>

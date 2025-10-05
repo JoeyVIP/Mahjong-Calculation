@@ -70,35 +70,33 @@ function App() {
     setShowSettings(false);
   }, []);
 
-  // 計算不含花牌和槓牌的有效張數
-  const calculateEffectiveCount = (tiles: Tile[]): number => {
+  // 計算槓的數量（4張相同的牌為1個槓）
+  const countKongs = (tiles: Tile[]): number => {
     const tilesWithoutFlower = tiles.filter(tile => tile.type !== 'flower');
-
-    // 統計每種牌的數量
     const counts = new Map<string, number>();
     tilesWithoutFlower.forEach(tile => {
       counts.set(tile.id, (counts.get(tile.id) || 0) + 1);
     });
 
-    // 計算有效張數：槓（4張）算1張，其他正常計算
-    let effectiveCount = 0;
+    let kongCount = 0;
     counts.forEach(count => {
-      if (count === 4) {
-        effectiveCount += 1; // 槓算1張
-      } else {
-        effectiveCount += count; // 其他正常算
-      }
+      if (count === 4) kongCount++;
     });
 
-    return effectiveCount;
+    return kongCount;
   };
 
-  const handEffectiveCount = calculateEffectiveCount(handTiles);
-  const exposedEffectiveCount = calculateEffectiveCount(exposedTiles);
-  const totalEffectiveCount = handEffectiveCount + exposedEffectiveCount;
+  // 計算不含花牌的實際張數
+  const handCountWithoutFlower = handTiles.filter(tile => tile.type !== 'flower').length;
+  const exposedCountWithoutFlower = exposedTiles.filter(tile => tile.type !== 'flower').length;
+  const totalCountWithoutFlower = handCountWithoutFlower + exposedCountWithoutFlower;
 
-  // 判斷是否可以進入結算：有效張數達到17張
-  const isFull = totalEffectiveCount === 17;
+  // 計算槓的數量並動態調整結算門檻
+  const totalKongs = countKongs([...handTiles, ...exposedTiles]);
+  const requiredTiles = 17 + totalKongs; // 無槓17張，每多1個槓就+1
+
+  // 判斷是否可以進入結算
+  const isFull = totalCountWithoutFlower === requiredTiles;
 
   return (
     <div className="h-screen flex flex-col bg-gradient-to-br from-mahjong-green-dark to-mahjong-green-light">

@@ -19,38 +19,37 @@ const HandDisplay = ({ handTiles, exposedTiles, inputMode, onRemoveTile, onOpenS
   // 追蹤最後點擊的牌（用於實現二次點擊移除）
   const [lastClickedTile, setLastClickedTile] = useState<{ position: TilePosition; index: number } | null>(null);
 
-  // 計算有效張數（槓=1張）
-  const calculateEffectiveCount = (tiles: Tile[]): number => {
+  // 計算槓的數量（4張相同的牌為1個槓）
+  const countKongs = (tiles: Tile[]): number => {
     const tilesWithoutFlower = tiles.filter(tile => tile.type !== 'flower');
-
-    // 統計每種牌的數量
     const counts = new Map<string, number>();
     tilesWithoutFlower.forEach(tile => {
       counts.set(tile.id, (counts.get(tile.id) || 0) + 1);
     });
 
-    // 計算有效張數：槓（4張）算1張，其他正常計算
-    let effectiveCount = 0;
+    let kongCount = 0;
     counts.forEach(count => {
-      if (count === 4) {
-        effectiveCount += 1; // 槓算1張
-      } else {
-        effectiveCount += count; // 其他正常算
-      }
+      if (count === 4) kongCount++;
     });
 
-    return effectiveCount;
+    return kongCount;
   };
 
-  const handEffectiveCount = calculateEffectiveCount(handTiles);
-  const exposedEffectiveCount = calculateEffectiveCount(exposedTiles);
-  const totalEffectiveCount = handEffectiveCount + exposedEffectiveCount;
+  // 計算不含花牌的實際張數
+  const handCountWithoutFlower = handTiles.filter(tile => tile.type !== 'flower').length;
+  const exposedCountWithoutFlower = exposedTiles.filter(tile => tile.type !== 'flower').length;
+  const totalCountWithoutFlower = handCountWithoutFlower + exposedCountWithoutFlower;
 
   // 計算花牌數量（用於顯示）
   const flowerCount = handTiles.filter(tile => tile.type === 'flower').length +
                       exposedTiles.filter(tile => tile.type === 'flower').length;
 
-  const isOverLimit = totalEffectiveCount > STANDARD_HAND_SIZE;
+  // 計算槓的數量並動態調整上限
+  const totalKongs = countKongs([...handTiles, ...exposedTiles]);
+  const requiredTiles = 17 + totalKongs; // 無槓17張，每多1個槓就+1
+
+  // 超過上限檢查（最多21張：17 + 4個槓）
+  const isOverLimit = totalCountWithoutFlower > 21;
 
   // 處理牌的點擊（二次點擊移除）
   const handleTileClick = (index: number, position: TilePosition) => {
@@ -128,7 +127,7 @@ const HandDisplay = ({ handTiles, exposedTiles, inputMode, onRemoveTile, onOpenS
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            ⚠️ 超過 {STANDARD_HAND_SIZE} 張，請移除多餘的牌
+            ⚠️ 超過上限（21張），請移除多餘的牌
           </motion.div>
         )}
 
@@ -154,9 +153,9 @@ const HandDisplay = ({ handTiles, exposedTiles, inputMode, onRemoveTile, onOpenS
             {/* 張數顯示 */}
             <div className="flex flex-col items-end">
               <div className={`text-xl font-bold ${
-                isOverLimit ? 'text-red-500' : totalEffectiveCount === STANDARD_HAND_SIZE ? 'text-green-600' : 'text-gray-600'
+                isOverLimit ? 'text-red-500' : totalCountWithoutFlower >= requiredTiles ? 'text-green-600' : 'text-gray-600'
               }`}>
-                {totalEffectiveCount}/{STANDARD_HAND_SIZE}
+                {totalCountWithoutFlower}/{requiredTiles}
               </div>
               {flowerCount > 0 && (
                 <div className="text-xs text-pink-600">

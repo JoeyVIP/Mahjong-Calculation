@@ -26,6 +26,20 @@ const defaultSettings: GameSettings = {
 };
 
 /**
+ * 創建遊戲設定的輔助函數
+ */
+const createSettings = (overrides: Partial<GameSettings> = {}): GameSettings => ({
+  roundWind: (overrides.roundWind || defaultSettings.roundWind),
+  seatWind: (overrides.seatWind || defaultSettings.seatWind),
+  isDealer: overrides.isDealer ?? defaultSettings.isDealer,
+  dealerStreak: overrides.dealerStreak ?? defaultSettings.dealerStreak,
+  winType: (overrides.winType || defaultSettings.winType),
+  isMenQing: overrides.isMenQing ?? defaultSettings.isMenQing,
+  baseAmount: overrides.baseAmount ?? defaultSettings.baseAmount,
+  fanAmount: overrides.fanAmount ?? defaultSettings.fanAmount,
+});
+
+/**
  * 測試案例
  */
 const testCases = [
@@ -50,13 +64,12 @@ const testCases = [
       createTile('wan', 1, 'wan-1', '一萬'), // 17張
     ],
     exposedTiles: [],
-    settings: {
-      ...defaultSettings,
+    settings: createSettings({
       roundWind: 'south',
       seatWind: 'east',
       isDealer: false,
       winType: 'selfDraw'
-    },
+    }),
     expectedFans: ['自摸', '門清', '無花', '門風 東'],
     expectedTotalFan: 4
   },
@@ -89,11 +102,10 @@ const testCases = [
       createTile('flower', 'bamboo', 'flower-bamboo', '竹'),
     ],
     exposedTiles: [],
-    settings: {
-      ...defaultSettings,
+    settings: createSettings({
       seatWind: 'east',
       winType: 'selfDraw'
-    },
+    }),
     expectedFans: ['自摸', '門清', '正花', '四季（四花）', '四君子（四花）', '八花', '七對子', '清一色'],
     expectedTotalFan: 27 // 1+1+1+2+2+8+4+8 = 27
   },
@@ -120,12 +132,12 @@ const testCases = [
       createTile('wan', 9, 'wan-9', '九萬'),
     ],
     exposedTiles: [],
-    settings: {
-      ...defaultSettings,
+    settings: createSettings({
+
       roundWind: 'east',
       seatWind: 'south',
       winType: 'selfDraw'
-    },
+    }),
     expectedFans: ['自摸', '門清', '無花', '圈風 東', '門風 南', '混一色'],
     expectedTotalFan: 9 // 1+1+1+1+1+4 = 9 (有風牌+萬，所以是混一色)
   },
@@ -152,12 +164,12 @@ const testCases = [
       createTile('tong', 3, 'tong-3', '三筒'),
     ],
     exposedTiles: [],
-    settings: {
-      ...defaultSettings,
+    settings: createSettings({
+
       roundWind: 'east',
       seatWind: 'east',
       winType: 'selfDraw'
-    },
+    }),
     expectedFans: ['自摸', '門清', '無花', '雙風 東'],
     expectedTotalFan: 4
   },
@@ -184,10 +196,10 @@ const testCases = [
       createTile('wan', 6, 'wan-6', '六萬'),
     ],
     exposedTiles: [],
-    settings: {
-      ...defaultSettings,
+    settings: createSettings({
+
       winType: 'selfDraw'
-    },
+    }),
     expectedFans: ['自摸', '門清', '無花', '紅中', '青發', '白板', '大三元', '混一色'],
     expectedTotalFan: 18 // 1+1+1+1+1+1+8+4 = 18 (有三元牌+萬，所以是混一色)
   },
@@ -211,10 +223,10 @@ const testCases = [
       createTile('wan', 7, 'wan-7', '七萬'),
     ],
     exposedTiles: [],
-    settings: {
-      ...defaultSettings,
+    settings: createSettings({
+
       winType: 'selfDraw'
-    },
+    }),
     expectedFans: ['自摸', '門清', '無花', '七對子', '清一色'],
     expectedTotalFan: 15 // 1+1+1+4+8 = 15 (全萬，所以有清一色)
   },
@@ -241,10 +253,10 @@ const testCases = [
       createTile('wan', 6, 'wan-6', '六萬'),
     ],
     exposedTiles: [],
-    settings: {
-      ...defaultSettings,
+    settings: createSettings({
+
       winType: 'selfDraw'
-    },
+    }),
     expectedFans: ['自摸', '門清', '無花', '對對胡', '清一色'],
     expectedTotalFan: 13 // 1+1+1+2+8 = 13 (全萬，所以有清一色)
   },
@@ -271,10 +283,10 @@ const testCases = [
       createTile('wan', 9, 'wan-9', '九萬'),
     ],
     exposedTiles: [],
-    settings: {
-      ...defaultSettings,
+    settings: createSettings({
+
       winType: 'selfDraw'
-    },
+    }),
     expectedFans: ['自摸', '門清', '無花', '清一色'],
     expectedTotalFan: 11 // 1+1+1+8
   },
@@ -301,12 +313,12 @@ const testCases = [
       createTile('wan', 7, 'wan-7', '七萬'),
     ],
     exposedTiles: [],
-    settings: {
-      ...defaultSettings,
+    settings: createSettings({
+
       roundWind: 'east',
       seatWind: 'east',
       winType: 'selfDraw'
-    },
+    }),
     expectedFans: ['自摸', '門清', '無花', '雙風 東', '紅中', '混一色'],
     expectedTotalFan: 9 // 1+1+1+1+1+4 = 9 (萬+字牌，所以是混一色)
   },
@@ -333,12 +345,12 @@ const testCases = [
       createTile('tong', 4, 'tong-4', '四筒'),
     ],
     exposedTiles: [],
-    settings: {
-      ...defaultSettings,
+    settings: createSettings({
+
       isDealer: true,
       dealerStreak: 2,
       winType: 'selfDraw'
-    },
+    }),
     expectedFans: ['自摸', '門清', '無花', '莊家', '連莊 2'],
     expectedTotalFan: 6 // 1+1+1+1+2
   },
@@ -365,10 +377,10 @@ const testCases = [
       createTile('tong', 4, 'tong-4', '四筒'),
     ],
     exposedTiles: [],
-    settings: {
-      ...defaultSettings,
+    settings: createSettings({
+
       winType: 'discard'
-    },
+    }),
     expectedFans: ['無花'], // 胡別人不算門清
     expectedTotalFan: 1
   }

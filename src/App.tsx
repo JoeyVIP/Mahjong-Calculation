@@ -70,11 +70,17 @@ function App() {
     setShowSettings(false);
   }, []);
 
-  // 計算不含花牌的總數
+  // 計算不含花牌的實際張數
   const handCountWithoutFlower = handTiles.filter(tile => tile.type !== 'flower').length;
   const exposedCountWithoutFlower = exposedTiles.filter(tile => tile.type !== 'flower').length;
   const totalCountWithoutFlower = handCountWithoutFlower + exposedCountWithoutFlower;
-  const isFull = totalCountWithoutFlower === 17;
+
+  // 判斷是否可以進入結算：
+  // 台灣麻將：基本需要17張（5組×3 + 1對×2）
+  // 有槓的時候：每個槓多1張，所以17張+槓數×1
+  // 最多4個槓 = 17+4 = 21張
+  // 簡化：只要 >= 17張就允許結算（讓驗證器去判斷是否真的胡牌）
+  const isFull = totalCountWithoutFlower >= 17;
 
   return (
     <div className="h-screen flex flex-col bg-gradient-to-br from-mahjong-green-dark to-mahjong-green-light">

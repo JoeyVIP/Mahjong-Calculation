@@ -9,11 +9,11 @@ export const validateHand = (handTiles: Tile[], exposedTiles: Tile[]): Validatio
   const exposedWithoutFlower = exposedTiles.filter(tile => tile.type !== 'flower');
   const allTiles = [...handWithoutFlower, ...exposedWithoutFlower];
 
-  // 檢查總數是否為 17 張
-  if (allTiles.length !== 17) {
+  // 檢查總數是否為 14 或 17 張（14張標準型/七對，17張含聽牌）
+  if (allTiles.length !== 14 && allTiles.length !== 17) {
     return {
       isValid: false,
-      errorMessage: `牌數錯誤：需要 17 張（不含花），目前 ${allTiles.length} 張`,
+      errorMessage: `牌數錯誤：需要 14 或 17 張（不含花），目前 ${allTiles.length} 張`,
       details: {
         totalTiles: allTiles.length,
         requiredTiles: 17,
@@ -99,12 +99,16 @@ const isSevenPairs = (tiles: Tile[]): boolean => {
 
 /**
  * 檢查是否為標準型（4組+1對）
+ * 接受 14 張（已胡）或 17 張（含聽牌的3張）
  */
 const isStandardWin = (tiles: Tile[]): boolean => {
-  if (tiles.length !== 17) return false;
+  if (tiles.length !== 14 && tiles.length !== 17) return false;
 
   // 將牌轉換為數字表示（用於遞迴檢查）
   const tileArray = tilesToArray(tiles);
+
+  // 計算需要的組數：17張需要5組+1對，14張需要4組+1對
+  const meldsNeeded = tiles.length === 17 ? 5 : 4;
 
   // 嘗試每種牌作為對子（眼睛）
   for (let i = 0; i < tileArray.length; i++) {
@@ -113,8 +117,8 @@ const isStandardWin = (tiles: Tile[]): boolean => {
       const remaining = [...tileArray];
       remaining[i] -= 2;
 
-      // 檢查剩餘的牌是否能組成 4 組
-      if (canFormMelds(remaining, 4)) {
+      // 檢查剩餘的牌是否能組成指定數量的組
+      if (canFormMelds(remaining, meldsNeeded)) {
         return true;
       }
     }

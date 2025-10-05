@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>計台引擎驗算器</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans TC', sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background: linear-gradient(to bottom, #f0f0f0, #e0e0e0);
+    }
+    h1 {
+      text-align: center;
+      color: #2d5f3f;
+    }
+    #output {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      white-space: pre-wrap;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    button {
+      display: block;
+      margin: 20px auto;
+      padding: 15px 40px;
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+      background: linear-gradient(to bottom, #3a7a4c, #2d5f3f);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 0 0 rgba(0,100,0,0.3);
+    }
+    button:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 0 rgba(0,100,0,0.3);
+    }
+  </style>
+</head>
+<body>
+  <h1>🀄 台灣麻將計台引擎 - 驗算器</h1>
+  <button onclick="runTests()">▶️ 執行測試</button>
+  <div id="output">點擊上方按鈕開始測試...</div>
+
+  <script type="module">
+    import { runTests } from './src/utils/calculator.test.ts';
+
+    window.runTests = () => {
+      const output = document.getElementById('output');
+
+      // 攔截 console.log
+      const logs = [];
+      const originalLog = console.log;
+      console.log = (...args) => {
+        logs.push(args.join(' '));
+        originalLog(...args);
+      };
+
+      try {
+        runTests();
+        output.textContent = logs.join('\n');
+      } catch (error) {
+        output.textContent = '執行錯誤：\n' + error.stack;
+      } finally {
+        console.log = originalLog;
+      }
+    };
+  </script>
+</body>
+</html>

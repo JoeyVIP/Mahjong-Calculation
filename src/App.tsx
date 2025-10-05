@@ -1,10 +1,12 @@
 import { useState, useCallback } from 'react'
-import { Tile, TilePosition, GameSettings } from './types'
+import { Tile, TilePosition, GameSettings, CalculationResult } from './types'
 import { DEFAULT_GAME_SETTINGS } from './constants/rules'
 import { validateHand } from './utils/validator'
+import { calculateFan } from './utils/calculator'
 import HandDisplay from './components/HandDisplay/HandDisplay'
 import TileSelector from './components/TileSelector/TileSelector'
 import SettingsPanel from './components/SettingsPanel/SettingsPanel'
+import ResultPanel from './components/ResultPanel/ResultPanel'
 
 function App() {
   const [handTiles, setHandTiles] = useState<Tile[]>([]);
@@ -12,6 +14,7 @@ function App() {
   const [inputMode, setInputMode] = useState<TilePosition>('hand');
   const [settings, setSettings] = useState<GameSettings>(DEFAULT_GAME_SETTINGS);
   const [showSettings, setShowSettings] = useState(false);
+  const [calculationResult, setCalculationResult] = useState<CalculationResult | null>(null);
 
   // 計算特定牌的已選數量（包含手牌和門前）
   const getTileCount = useCallback((tileId: string): number => {
@@ -57,6 +60,14 @@ function App() {
   const handleClearAll = useCallback(() => {
     setHandTiles([]);
     setExposedTiles([]);
+  }, []);
+
+  // 重新開始
+  const handleRestart = useCallback(() => {
+    setHandTiles([]);
+    setExposedTiles([]);
+    setCalculationResult(null);
+    setShowSettings(false);
   }, []);
 
   // 計算不含花牌的總數
@@ -113,9 +124,10 @@ function App() {
                 onClick={() => {
                   const validation = validateHand(handTiles, exposedTiles);
                   if (validation.isValid) {
-                    alert('胡牌有效！準備計算台數...');
+                    // 執行計算
+                    const result = calculateFan(handTiles, exposedTiles, settings);
+                    setCalculationResult(result);
                     setShowSettings(false);
-                    // TODO: 進入結果展示階段
                   } else {
                     alert(`驗證失敗：${validation.errorMessage}`);
                   }
@@ -127,6 +139,15 @@ function App() {
             )}
           </div>
         </div>
+      )}
+
+      {/* 結果面板 */}
+      {calculationResult && (
+        <ResultPanel
+          result={calculationResult}
+          onClose={() => setCalculationResult(null)}
+          onRestart={handleRestart}
+        />
       )}
     </div>
   )

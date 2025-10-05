@@ -11,10 +11,10 @@ export const validateHand = (handTiles: Tile[], exposedTiles: Tile[]): Validatio
 
   // 檢查總數：14張（已胡）、17張（含聽牌）、或更多（有槓的情況）
   // 有槓的時候：17 + 槓數，最多4個槓 = 17+4 = 21張
-  if (allTiles.length < 14 || allTiles.length > 23) {
+  if (allTiles.length < 14 || allTiles.length > 21) {
     return {
       isValid: false,
-      errorMessage: `牌數錯誤：需要 14-23 張（不含花），目前 ${allTiles.length} 張`,
+      errorMessage: `牌數錯誤：需要 14-21 張（不含花），目前 ${allTiles.length} 張`,
       details: {
         totalTiles: allTiles.length,
         requiredTiles: 17,
@@ -103,7 +103,7 @@ const isSevenPairs = (tiles: Tile[]): boolean => {
  * 接受 14 張（4組+1對）、17 張（5組+1對）、或更多（有槓）
  */
 const isStandardWin = (tiles: Tile[]): boolean => {
-  if (tiles.length < 14 || tiles.length > 23) return false;
+  if (tiles.length < 14 || tiles.length > 21) return false;
 
   // 將牌轉換為數字表示（用於遞迴檢查）
   const tileArray = tilesToArray(tiles);
@@ -112,7 +112,7 @@ const isStandardWin = (tiles: Tile[]): boolean => {
   // 標準：(總張數 - 2) / 3 = 組數
   // 但因為可能有槓（4張=1組），需要動態計算
   // 簡化：根據總張數推算
-  // 14張=4組, 17張=5組, 20張=6組（有槓）, 23張=7組（有槓）
+  // 14張=4組, 17張=5組, 18張=5組(1槓), 19張=5組(2槓), 20張=5組(3槓), 21張=5組(4槓)
   const meldsNeeded = Math.floor((tiles.length - 2) / 3);
 
   // 嘗試每種牌作為對子（眼睛）

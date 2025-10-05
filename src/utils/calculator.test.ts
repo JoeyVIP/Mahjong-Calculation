@@ -15,11 +15,11 @@ const createTile = (type: string, value: number | string, id: string, display: s
  * 預設遊戲設定
  */
 const defaultSettings: GameSettings = {
-  roundWind: 'east',
-  seatWind: 'east',
+  roundWind: 'east' as const,
+  seatWind: 'east' as const,
   isDealer: false,
   dealerStreak: 0,
-  winType: 'selfDraw',
+  winType: 'selfDraw' as const,
   isMenQing: false,
   baseAmount: 50,
   fanAmount: 20

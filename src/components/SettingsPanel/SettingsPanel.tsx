@@ -135,6 +135,35 @@ const SettingsPanel = ({ settings, onSettingsChange }: SettingsPanelProps) => {
         </div>
       </div>
 
+      {/* 特殊胡牌 */}
+      <div>
+        <h3 className="text-sm font-bold text-gray-700 mb-2">特殊胡牌</h3>
+        <div className="grid grid-cols-2 gap-2">
+          <motion.button
+            onClick={() => onSettingsChange({ isKongWin: !settings.isKongWin })}
+            className={`
+              py-3 rounded-xl font-bold text-white text-lg
+              shadow-[0_4px_0_0_rgba(0,0,0,0.2)] active:shadow-[0_2px_0_0_rgba(0,0,0,0.2)] active:translate-y-[2px]
+              ${settings.isKongWin ? 'bg-gradient-to-br from-teal-500 to-teal-600' : 'bg-gradient-to-br from-gray-300 to-gray-400'}
+            `}
+            whileTap={{ y: 2 }}
+          >
+            槓上開花
+          </motion.button>
+          <motion.button
+            onClick={() => onSettingsChange({ isRobbingKong: !settings.isRobbingKong })}
+            className={`
+              py-3 rounded-xl font-bold text-white text-lg
+              shadow-[0_4px_0_0_rgba(0,0,0,0.2)] active:shadow-[0_2px_0_0_rgba(0,0,0,0.2)] active:translate-y-[2px]
+              ${settings.isRobbingKong ? 'bg-gradient-to-br from-pink-500 to-pink-600' : 'bg-gradient-to-br from-gray-300 to-gray-400'}
+            `}
+            whileTap={{ y: 2 }}
+          >
+            搶槓
+          </motion.button>
+        </div>
+      </div>
+
       {/* 底台設定 - 輸入欄位 */}
       <div>
         <h3 className="text-sm font-bold text-gray-700 mb-2">底/台</h3>

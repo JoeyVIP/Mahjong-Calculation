@@ -25,6 +25,8 @@ export interface GameSettings {
   isMenQing: boolean; // 是否門清
   baseAmount: number; // 底
   fanAmount: number; // 每台金額
+  isKongWin: boolean; // 是否槓上開花
+  isRobbingKong: boolean; // 是否搶槓
 }
 
 // 牌的位置類型

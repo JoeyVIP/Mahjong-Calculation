@@ -22,7 +22,9 @@ const defaultSettings: GameSettings = {
   winType: 'selfDraw' as const,
   isMenQing: false,
   baseAmount: 50,
-  fanAmount: 20
+  fanAmount: 20,
+  isKongWin: false,
+  isRobbingKong: false,
 };
 
 /**
@@ -37,6 +39,8 @@ const createSettings = (overrides: Partial<GameSettings> = {}): GameSettings => 
   isMenQing: overrides.isMenQing ?? defaultSettings.isMenQing,
   baseAmount: overrides.baseAmount ?? defaultSettings.baseAmount,
   fanAmount: overrides.fanAmount ?? defaultSettings.fanAmount,
+  isKongWin: overrides.isKongWin ?? defaultSettings.isKongWin,
+  isRobbingKong: overrides.isRobbingKong ?? defaultSettings.isRobbingKong,
 });
 
 /**

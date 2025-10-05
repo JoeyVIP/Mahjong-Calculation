@@ -85,6 +85,10 @@ export const calculateFan = (
   const dragonFans = calculateDragonFans(allTiles);
   fanTypes.push(...dragonFans);
 
+  // ========== 槓牌台 ==========
+  const kongFans = calculateKongFans(handWithoutFlower, exposedWithoutFlower, settings);
+  fanTypes.push(...kongFans);
+
   // ========== 特殊牌型台 ==========
   const patternFans = calculatePatternFans(allTiles, handWithoutFlower, exposedWithoutFlower);
   fanTypes.push(...patternFans);
@@ -348,6 +352,73 @@ const calculateDragonFans = (tiles: Tile[]): FanType[] => {
       fan: 8,
       description: '中發白都是刻子',
       reason: '中發白三種刻子齊全'
+    });
+  }
+
+  return fans;
+};
+
+/**
+ * 計算槓牌台
+ */
+const calculateKongFans = (handTiles: Tile[], exposedTiles: Tile[], settings: GameSettings): FanType[] => {
+  const fans: FanType[] = [];
+
+  // 統計手牌中的槓（4張相同）
+  const handCounts = new Map<string, number>();
+  handTiles.forEach(tile => {
+    handCounts.set(tile.id, (handCounts.get(tile.id) || 0) + 1);
+  });
+
+  // 暗槓：手牌中有4張相同的牌
+  handCounts.forEach((count, tileId) => {
+    if (count === 4) {
+      const tile = handTiles.find(t => t.id === tileId);
+      fans.push({
+        name: '暗槓',
+        fan: 1,
+        description: '手牌中有四張相同的牌',
+        reason: `${tile?.display || tileId} 暗槓`
+      });
+    }
+  });
+
+  // 統計門前牌中的槓（4張相同）
+  const exposedCounts = new Map<string, number>();
+  exposedTiles.forEach(tile => {
+    exposedCounts.set(tile.id, (exposedCounts.get(tile.id) || 0) + 1);
+  });
+
+  // 明槓：門前牌中有4張相同的牌
+  exposedCounts.forEach((count, tileId) => {
+    if (count === 4) {
+      const tile = exposedTiles.find(t => t.id === tileId);
+      fans.push({
+        name: '明槓',
+        fan: 1,
+        description: '門前有四張相同的牌',
+        reason: `${tile?.display || tileId} 明槓`
+      });
+    }
+  });
+
+  // 槓上開花 1台
+  if (settings.isKongWin) {
+    fans.push({
+      name: '槓上開花',
+      fan: 1,
+      description: '槓牌後自摸胡牌',
+      reason: '槓後立即自摸胡牌'
+    });
+  }
+
+  // 搶槓 1台
+  if (settings.isRobbingKong) {
+    fans.push({
+      name: '搶槓',
+      fan: 1,
+      description: '別人加槓時胡那張牌',
+      reason: '搶槓胡牌'
     });
   }
 

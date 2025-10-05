@@ -28,6 +28,8 @@ export const DEFAULT_GAME_SETTINGS = {
   isMenQing: true,
   baseAmount: 50,
   fanAmount: 20,
+  isKongWin: false,
+  isRobbingKong: false,
 };
 
 // 台種配置

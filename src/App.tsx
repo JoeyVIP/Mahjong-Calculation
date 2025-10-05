@@ -70,17 +70,35 @@ function App() {
     setShowSettings(false);
   }, []);
 
-  // 計算不含花牌的實際張數
-  const handCountWithoutFlower = handTiles.filter(tile => tile.type !== 'flower').length;
-  const exposedCountWithoutFlower = exposedTiles.filter(tile => tile.type !== 'flower').length;
-  const totalCountWithoutFlower = handCountWithoutFlower + exposedCountWithoutFlower;
+  // 計算不含花牌和槓牌的有效張數
+  const calculateEffectiveCount = (tiles: Tile[]): number => {
+    const tilesWithoutFlower = tiles.filter(tile => tile.type !== 'flower');
 
-  // 判斷是否可以進入結算：
-  // 台灣麻將：基本需要17張（5組×3 + 1對×2）
-  // 有槓的時候：每個槓多1張，所以17張+槓數×1
-  // 最多4個槓 = 17+4 = 21張
-  // 簡化：只要 >= 17張就允許結算（讓驗證器去判斷是否真的胡牌）
-  const isFull = totalCountWithoutFlower >= 17;
+    // 統計每種牌的數量
+    const counts = new Map<string, number>();
+    tilesWithoutFlower.forEach(tile => {
+      counts.set(tile.id, (counts.get(tile.id) || 0) + 1);
+    });
+
+    // 計算有效張數：槓（4張）算1張，其他正常計算
+    let effectiveCount = 0;
+    counts.forEach(count => {
+      if (count === 4) {
+        effectiveCount += 1; // 槓算1張
+      } else {
+        effectiveCount += count; // 其他正常算
+      }
+    });
+
+    return effectiveCount;
+  };
+
+  const handEffectiveCount = calculateEffectiveCount(handTiles);
+  const exposedEffectiveCount = calculateEffectiveCount(exposedTiles);
+  const totalEffectiveCount = handEffectiveCount + exposedEffectiveCount;
+
+  // 判斷是否可以進入結算：有效張數達到17張
+  const isFull = totalEffectiveCount === 17;
 
   return (
     <div className="h-screen flex flex-col bg-gradient-to-br from-mahjong-green-dark to-mahjong-green-light">

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Tile, TilePosition } from '../../types';
-import { STANDARD_HAND_SIZE } from '../../constants/rules';
 import { tileEntry } from '../../constants/animations';
 import { getTileSvgPath } from '../../utils/tileImages';
 

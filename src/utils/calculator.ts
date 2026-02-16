@@ -39,6 +39,14 @@ export const calculateFan = (
       description: '沒有吃碰槓，自摸胡牌',
       reason: '手牌無吃碰槓'
     });
+
+    // 門清自摸 1台（門清且自摸時額外加1台）
+    fanTypes.push({
+      name: '門清自摸',
+      fan: 1,
+      description: '門清狀態下自摸胡牌',
+      reason: '門清且自摸'
+    });
   }
 
   // 無花 1台（沒有任何花牌）
@@ -808,9 +816,14 @@ const calculateConcealedFans = (handTiles: Tile[], _exposedTiles: Tile[]): FanTy
       reason: '手牌有5組暗刻'
     });
   }
-  // 四暗刻 5台（calculator 已有實作，但這裡做為補充）
+  // 四暗刻 5台
   else if (concealedMelds === 4) {
-    // 已在 calculatePatternFans 或其他地方計算
+    fans.push({
+      name: '四暗刻',
+      fan: 5,
+      description: '四組暗刻',
+      reason: '手牌有4組暗刻'
+    });
   }
   // 三暗刻 2台
   else if (concealedMelds === 3) {

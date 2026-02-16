@@ -1,13 +1,36 @@
 import { motion } from 'framer-motion';
 import { CalculationResult } from '../../types';
+import { useState } from 'react';
 
 interface ResultPanelProps {
   result: CalculationResult;
   onClose: () => void;
   onRestart: () => void;
+  onAddToAccount?: () => void; // 預留記帳功能
 }
 
-const ResultPanel = ({ result, onClose, onRestart }: ResultPanelProps) => {
+const ResultPanel = ({ result, onClose, onRestart, onAddToAccount }: ResultPanelProps) => {
+  const [copySuccess, setCopySuccess] = useState(false);
+
+  // 複製結果到剪貼簿
+  const handleCopyResult = () => {
+    const fanList = result.fanTypes.map(f => `${f.name} ${f.fan}台`).join(', ');
+    const paymentInfo = result.payment.selfDrawPayment
+      ? `自摸：每家付 ${result.payment.selfDrawPayment.perPlayer} 元，總收 ${result.payment.selfDrawPayment.total} 元`
+      : `放槍：${result.payment.discardPayment?.loser} 元`;
+
+    const text = `台灣麻將計台結果
+台型：${fanList}
+總台數：${result.totalFan} 台
+${paymentInfo}
+計算：${result.formula}`;
+
+    navigator.clipboard.writeText(text).then(() => {
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 2000);
+    });
+  };
+
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <motion.div
@@ -117,21 +140,49 @@ const ResultPanel = ({ result, onClose, onRestart }: ResultPanelProps) => {
           </div>
 
           {/* 按鈕區 */}
-          <div className="flex gap-3 mt-6">
+          <div className="space-y-3 mt-6">
+            {/* 複製結果按鈕 */}
             <motion.button
-              onClick={onRestart}
-              className="flex-1 py-4 rounded-xl font-bold text-lg text-white bg-gradient-to-br from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 shadow-lg"
+              onClick={handleCopyResult}
+              className={`w-full py-4 rounded-xl font-bold text-lg text-white shadow-lg transition-all ${
+                copySuccess
+                  ? 'bg-gradient-to-br from-green-500 to-green-600'
+                  : 'bg-gradient-to-br from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700'
+              }`}
               whileTap={{ scale: 0.98 }}
             >
-              重新開始
+              {copySuccess ? '✓ 已複製' : '📋 複製結果'}
             </motion.button>
-            <motion.button
-              onClick={onClose}
-              className="flex-1 py-4 rounded-xl font-bold text-lg text-gray-700 bg-gradient-to-br from-gray-200 to-gray-300 hover:from-gray-300 hover:to-gray-400 shadow-lg"
-              whileTap={{ scale: 0.98 }}
-            >
-              返回
-            </motion.button>
+
+            {/* 帶入記帳按鈕（預留） */}
+            {onAddToAccount && (
+              <motion.button
+                onClick={onAddToAccount}
+                className="w-full py-4 rounded-xl font-bold text-lg text-white bg-gradient-to-br from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                whileTap={{ scale: 0.98 }}
+                disabled={true}
+              >
+                📝 帶入記帳（開發中）
+              </motion.button>
+            )}
+
+            {/* 其他按鈕 */}
+            <div className="flex gap-3">
+              <motion.button
+                onClick={onRestart}
+                className="flex-1 py-4 rounded-xl font-bold text-lg text-white bg-gradient-to-br from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 shadow-lg"
+                whileTap={{ scale: 0.98 }}
+              >
+                重新開始
+              </motion.button>
+              <motion.button
+                onClick={onClose}
+                className="flex-1 py-4 rounded-xl font-bold text-lg text-gray-700 bg-gradient-to-br from-gray-200 to-gray-300 hover:from-gray-300 hover:to-gray-400 shadow-lg"
+                whileTap={{ scale: 0.98 }}
+              >
+                返回
+              </motion.button>
+            </div>
           </div>
         </div>
       </motion.div>

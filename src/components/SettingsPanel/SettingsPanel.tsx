@@ -14,6 +14,24 @@ const SettingsPanel = ({ settings, onSettingsChange }: SettingsPanelProps) => {
     { value: 'north', label: '北', color: 'from-gray-500 to-gray-600' },
   ];
 
+  // 防呆邏輯：切換胡牌方式時自動調整相關設定
+  const handleWinTypeChange = (winType: 'selfDraw' | 'discard') => {
+    if (winType === 'selfDraw') {
+      // 自摸時自動清除河底撈魚、搶槓
+      onSettingsChange({
+        winType,
+        isLastTileDiscard: false,
+        isRobbingKong: false,
+      });
+    } else {
+      // 胡別人時自動清除海底撈月、槓上開花
+      onSettingsChange({
+        winType,
+        isLastTileDraw: false,
+        isKongWin: false,
+      });
+    }
+  };
 
   return (
     <div className="bg-white shadow-lg rounded-2xl p-4 space-y-4">
@@ -111,7 +129,7 @@ const SettingsPanel = ({ settings, onSettingsChange }: SettingsPanelProps) => {
         <h3 className="text-sm font-bold text-gray-700 mb-2">胡牌方式</h3>
         <div className="grid grid-cols-2 gap-2">
           <motion.button
-            onClick={() => onSettingsChange({ winType: 'selfDraw' })}
+            onClick={() => handleWinTypeChange('selfDraw')}
             className={`
               py-3 rounded-xl font-bold text-white text-lg
               shadow-[0_4px_0_0_rgba(0,0,0,0.2)] active:shadow-[0_2px_0_0_rgba(0,0,0,0.2)] active:translate-y-[2px]
@@ -122,7 +140,7 @@ const SettingsPanel = ({ settings, onSettingsChange }: SettingsPanelProps) => {
             自摸
           </motion.button>
           <motion.button
-            onClick={() => onSettingsChange({ winType: 'discard' })}
+            onClick={() => handleWinTypeChange('discard')}
             className={`
               py-3 rounded-xl font-bold text-white text-lg
               shadow-[0_4px_0_0_rgba(0,0,0,0.2)] active:shadow-[0_2px_0_0_rgba(0,0,0,0.2)] active:translate-y-[2px]
@@ -193,6 +211,112 @@ const SettingsPanel = ({ settings, onSettingsChange }: SettingsPanelProps) => {
             />
           </div>
         </div>
+      </div>
+
+      {/* 聽牌方式 */}
+      <div>
+        <h3 className="text-sm font-bold text-gray-700 mb-2">聽牌方式</h3>
+        <div className="grid grid-cols-4 gap-2">
+          {[
+            { value: 'none', label: '無' },
+            { value: 'single', label: '單騎' },
+            { value: 'middle', label: '中洞' },
+            { value: 'edge', label: '邊張' },
+          ].map((type) => (
+            <motion.button
+              key={type.value}
+              onClick={() => onSettingsChange({ waitingType: type.value as any })}
+              className={`
+                py-3 rounded-xl font-bold text-white text-base
+                shadow-[0_4px_0_0_rgba(0,0,0,0.2)] active:shadow-[0_2px_0_0_rgba(0,0,0,0.2)] active:translate-y-[2px]
+                ${settings.waitingType === type.value ? 'bg-gradient-to-br from-indigo-500 to-indigo-600' : 'bg-gradient-to-br from-gray-300 to-gray-400'}
+              `}
+              whileTap={{ y: 2 }}
+            >
+              {type.label}
+            </motion.button>
+          ))}
+        </div>
+      </div>
+
+      {/* 特殊胡法 */}
+      <div>
+        <h3 className="text-sm font-bold text-gray-700 mb-2">特殊胡法</h3>
+        <div className="grid grid-cols-4 gap-2">
+          {[
+            { value: 'none', label: '無' },
+            { value: 'heaven', label: '天胡' },
+            { value: 'earth', label: '地胡' },
+            { value: 'human', label: '人胡' },
+          ].map((type) => (
+            <motion.button
+              key={type.value}
+              onClick={() => onSettingsChange({ specialWin: type.value as any })}
+              className={`
+                py-3 rounded-xl font-bold text-white text-base
+                shadow-[0_4px_0_0_rgba(0,0,0,0.2)] active:shadow-[0_2px_0_0_rgba(0,0,0,0.2)] active:translate-y-[2px]
+                ${settings.specialWin === type.value ? 'bg-gradient-to-br from-red-500 to-red-600' : 'bg-gradient-to-br from-gray-300 to-gray-400'}
+              `}
+              whileTap={{ y: 2 }}
+            >
+              {type.label}
+            </motion.button>
+          ))}
+        </div>
+      </div>
+
+      {/* 海底/河底 */}
+      <div>
+        <h3 className="text-sm font-bold text-gray-700 mb-2">最後一張</h3>
+        <div className="grid grid-cols-2 gap-2">
+          <motion.button
+            onClick={() => onSettingsChange({ isLastTileDraw: !settings.isLastTileDraw, isLastTileDiscard: false })}
+            className={`
+              py-3 rounded-xl font-bold text-white text-base
+              shadow-[0_4px_0_0_rgba(0,0,0,0.2)] active:shadow-[0_2px_0_0_rgba(0,0,0,0.2)] active:translate-y-[2px]
+              ${settings.isLastTileDraw ? 'bg-gradient-to-br from-cyan-500 to-cyan-600' : 'bg-gradient-to-br from-gray-300 to-gray-400'}
+            `}
+            whileTap={{ y: 2 }}
+          >
+            海底撈月
+          </motion.button>
+          <motion.button
+            onClick={() => onSettingsChange({ isLastTileDiscard: !settings.isLastTileDiscard, isLastTileDraw: false })}
+            className={`
+              py-3 rounded-xl font-bold text-white text-base
+              shadow-[0_4px_0_0_rgba(0,0,0,0.2)] active:shadow-[0_2px_0_0_rgba(0,0,0,0.2)] active:translate-y-[2px]
+              ${settings.isLastTileDiscard ? 'bg-gradient-to-br from-amber-500 to-amber-600' : 'bg-gradient-to-br from-gray-300 to-gray-400'}
+            `}
+            whileTap={{ y: 2 }}
+          >
+            河底撈魚
+          </motion.button>
+        </div>
+      </div>
+
+      {/* 花牌數量 */}
+      <div>
+        <h3 className="text-sm font-bold text-gray-700 mb-2">花牌數量</h3>
+        <div className="flex gap-1 items-center">
+          <motion.button
+            onClick={() => onSettingsChange({ flowerCount: Math.max(0, settings.flowerCount - 1) })}
+            className="flex-1 py-3 rounded-xl font-bold text-white text-lg bg-gradient-to-br from-gray-400 to-gray-500 shadow-[0_4px_0_0_rgba(0,0,0,0.2)] active:shadow-[0_2px_0_0_rgba(0,0,0,0.2)] active:translate-y-[2px]"
+            whileTap={{ y: 2 }}
+          >
+            -
+          </motion.button>
+          <div className="flex-1 flex items-center justify-center bg-gradient-to-br from-rose-100 to-rose-200 rounded-xl font-bold text-2xl py-3 border-2 border-rose-300">
+            {settings.flowerCount}
+          </div>
+          <motion.button
+            onClick={() => onSettingsChange({ flowerCount: Math.min(8, settings.flowerCount + 1) })}
+            className="flex-1 py-3 rounded-xl font-bold text-white text-lg bg-gradient-to-br from-gray-400 to-gray-500 shadow-[0_4px_0_0_rgba(0,0,0,0.2)] active:shadow-[0_2px_0_0_rgba(0,0,0,0.2)] active:translate-y-[2px]"
+            whileTap={{ y: 2 }}
+          >
+            +
+          </motion.button>
+        </div>
+        <p className="text-xs text-gray-500 mt-1 text-center">每朵花 1 台</p>
       </div>
     </div>
   );

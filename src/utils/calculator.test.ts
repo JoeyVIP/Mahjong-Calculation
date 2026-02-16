@@ -25,6 +25,11 @@ const defaultSettings: GameSettings = {
   fanAmount: 20,
   isKongWin: false,
   isRobbingKong: false,
+  isLastTileDraw: false,
+  isLastTileDiscard: false,
+  waitingType: 'none' as const,
+  specialWin: 'none' as const,
+  flowerCount: 0,
 };
 
 /**
@@ -41,6 +46,11 @@ const createSettings = (overrides: Partial<GameSettings> = {}): GameSettings => 
   fanAmount: overrides.fanAmount ?? defaultSettings.fanAmount,
   isKongWin: overrides.isKongWin ?? defaultSettings.isKongWin,
   isRobbingKong: overrides.isRobbingKong ?? defaultSettings.isRobbingKong,
+  isLastTileDraw: overrides.isLastTileDraw ?? defaultSettings.isLastTileDraw,
+  isLastTileDiscard: overrides.isLastTileDiscard ?? defaultSettings.isLastTileDiscard,
+  waitingType: (overrides.waitingType || defaultSettings.waitingType),
+  specialWin: (overrides.specialWin || defaultSettings.specialWin),
+  flowerCount: overrides.flowerCount ?? defaultSettings.flowerCount,
 });
 
 /**

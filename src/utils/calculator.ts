@@ -77,6 +77,16 @@ export const calculateFan = (
   const flowerFans = calculateFlowerFans(flowerTiles, settings);
   fanTypes.push(...flowerFans);
 
+  // ========== 花牌數量台（從設定中獨立計算）==========
+  if (settings.flowerCount > 0) {
+    fanTypes.push({
+      name: `花牌 ${settings.flowerCount} 朵`,
+      fan: settings.flowerCount,
+      description: `拿到 ${settings.flowerCount} 朵花牌`,
+      reason: `每朵花牌 1 台`
+    });
+  }
+
   // ========== 風牌台 ==========
   const windFans = calculateWindFans(allTiles, settings);
   fanTypes.push(...windFans);
@@ -92,6 +102,18 @@ export const calculateFan = (
   // ========== 特殊牌型台 ==========
   const patternFans = calculatePatternFans(allTiles, handWithoutFlower, exposedWithoutFlower);
   fanTypes.push(...patternFans);
+
+  // ========== 聽牌方式台 ==========
+  const waitingFans = calculateWaitingFans(settings.waitingType);
+  fanTypes.push(...waitingFans);
+
+  // ========== 特殊胡法台 ==========
+  const specialWinFans = calculateSpecialWinFans(settings);
+  fanTypes.push(...specialWinFans);
+
+  // ========== 暗刻台 ==========
+  const concealedFans = calculateConcealedFans(handWithoutFlower, exposedWithoutFlower);
+  fanTypes.push(...concealedFans);
 
   // ========== 計算總台數 ==========
   const totalFan = fanTypes.reduce((sum, fanType) => sum + fanType.fan, 0);
@@ -499,8 +521,35 @@ const calculatePatternFans = (
     });
   }
 
-  // 獨聽 1台（單吊一張）
-  // 這個需要額外資訊，暫時不實作
+  // 平胡 2台（全部順子 + 雜牌對，且無單騎/中洞/邊張）
+  if (isAllSequences(allTiles) && !isSevenPairs(allTiles)) {
+    fans.push({
+      name: '平胡',
+      fan: 2,
+      description: '全為順子搭配雜牌對子',
+      reason: '平胡牌型'
+    });
+  }
+
+  // 湊一色 4台（只有1、9和字牌）
+  if (isAllTerminalsAndHonors(allTiles)) {
+    fans.push({
+      name: '湊一色',
+      fan: 4,
+      description: '只有1和9搭配字牌',
+      reason: '全為老頭牌和字牌'
+    });
+  }
+
+  // 清老頭 8台（只有1和9的刻子，無字牌）
+  if (isPureTerminals(allTiles)) {
+    fans.push({
+      name: '清老頭',
+      fan: 8,
+      description: '全為1和9的刻子',
+      reason: '清一色老頭'
+    });
+  }
 
   return fans;
 };
@@ -643,4 +692,191 @@ const generateFormula = (
       return `${base} = ${payment.discardPayment.loser}元（放槍者付）`;
     }
   }
+};
+
+/**
+ * 計算聽牌方式台（單騎、中洞、邊張）
+ */
+const calculateWaitingFans = (waitingType: string): FanType[] => {
+  const fans: FanType[] = [];
+
+  if (waitingType === 'single') {
+    fans.push({
+      name: '單騎',
+      fan: 1,
+      description: '只聽一張牌當雀頭',
+      reason: '單吊聽牌'
+    });
+  } else if (waitingType === 'middle') {
+    fans.push({
+      name: '中洞',
+      fan: 1,
+      description: '聽嵌張（例如34聽5）',
+      reason: '中洞聽牌'
+    });
+  } else if (waitingType === 'edge') {
+    fans.push({
+      name: '邊張',
+      fan: 1,
+      description: '聽12的3或89的7',
+      reason: '邊張聽牌'
+    });
+  }
+
+  return fans;
+};
+
+/**
+ * 計算特殊胡法台（天胡、地胡、人胡、海底撈月、河底撈魚）
+ */
+const calculateSpecialWinFans = (settings: GameSettings): FanType[] => {
+  const fans: FanType[] = [];
+
+  // 天胡 16台
+  if (settings.specialWin === 'heaven') {
+    fans.push({
+      name: '天胡',
+      fan: 16,
+      description: '莊家起手胡牌',
+      reason: '莊家配牌即胡'
+    });
+  }
+
+  // 地胡 16台
+  if (settings.specialWin === 'earth') {
+    fans.push({
+      name: '地胡',
+      fan: 16,
+      description: '閒家第一輪胡牌',
+      reason: '閒家第一次摸牌即胡'
+    });
+  }
+
+  // 人胡 8台
+  if (settings.specialWin === 'human') {
+    fans.push({
+      name: '人胡',
+      fan: 8,
+      description: '莊家打出第一張牌被胡',
+      reason: '莊家第一張打出被胡'
+    });
+  }
+
+  // 海底撈月 1台（自摸最後一張）
+  if (settings.isLastTileDraw) {
+    fans.push({
+      name: '海底撈月',
+      fan: 1,
+      description: '摸到牌牆最後一張胡牌',
+      reason: '最後一張自摸'
+    });
+  }
+
+  // 河底撈魚 1台（別人打出最後一張）
+  if (settings.isLastTileDiscard) {
+    fans.push({
+      name: '河底撈魚',
+      fan: 1,
+      description: '別人打出最後一張胡牌',
+      reason: '最後一張放槍'
+    });
+  }
+
+  return fans;
+};
+
+/**
+ * 計算暗刻台（三暗刻、四暗刻、五暗刻）
+ */
+const calculateConcealedFans = (handTiles: Tile[], _exposedTiles: Tile[]): FanType[] => {
+  const fans: FanType[] = [];
+
+  // 統計手牌中的暗刻（3張或4張相同）
+  const handCounts = new Map<string, number>();
+  handTiles.forEach(tile => {
+    handCounts.set(tile.id, (handCounts.get(tile.id) || 0) + 1);
+  });
+
+  const concealedMelds = Array.from(handCounts.values()).filter(count => count >= 3).length;
+
+  // 五暗刻 8台
+  if (concealedMelds === 5) {
+    fans.push({
+      name: '五暗刻',
+      fan: 8,
+      description: '五組暗刻',
+      reason: '手牌有5組暗刻'
+    });
+  }
+  // 四暗刻 5台（calculator 已有實作，但這裡做為補充）
+  else if (concealedMelds === 4) {
+    // 已在 calculatePatternFans 或其他地方計算
+  }
+  // 三暗刻 2台
+  else if (concealedMelds === 3) {
+    fans.push({
+      name: '三暗刻',
+      fan: 2,
+      description: '三組暗刻',
+      reason: '手牌有3組暗刻'
+    });
+  }
+
+  return fans;
+};
+
+/**
+ * 檢查是否為全部順子（平胡判斷用）
+ */
+const isAllSequences = (tiles: Tile[]): boolean => {
+  // 簡化判斷：如果不是對對胡且不是七對子，大致可視為順子牌型
+  // 嚴格的順子判斷需要完整拆解手牌，這裡先用簡易規則
+  const counts = new Map<string, number>();
+  tiles.forEach(tile => {
+    counts.set(tile.id, (counts.get(tile.id) || 0) + 1);
+  });
+
+  // 如果有4張相同的牌（槓），就不是順子
+  const hasKong = Array.from(counts.values()).some(c => c === 4);
+  if (hasKong) return false;
+
+  // 如果超過一個對子，就不是標準順子牌型
+  const pairs = Array.from(counts.values()).filter(c => c === 2).length;
+  if (pairs > 1) return false;
+
+  // 如果有3張相同的牌超過1組，可能是對對胡
+  const melds = Array.from(counts.values()).filter(c => c === 3).length;
+  if (melds > 1) return false;
+
+  return true;
+};
+
+/**
+ * 檢查是否為湊一色（全為1、9和字牌）
+ */
+const isAllTerminalsAndHonors = (tiles: Tile[]): boolean => {
+  return tiles.every(tile => {
+    if (tile.type === 'wind' || tile.type === 'dragon') {
+      return true;
+    }
+    if (tile.type === 'wan' || tile.type === 'tiao' || tile.type === 'tong') {
+      return tile.value === 1 || tile.value === 9;
+    }
+    return false;
+  });
+};
+
+/**
+ * 檢查是否為清老頭（全為1和9，無字牌）
+ */
+const isPureTerminals = (tiles: Tile[]): boolean => {
+  const hasOnlyTerminals = tiles.every(tile => {
+    if (tile.type === 'wan' || tile.type === 'tiao' || tile.type === 'tong') {
+      return tile.value === 1 || tile.value === 9;
+    }
+    return false;
+  });
+
+  // 而且必須全部是刻子（對對胡）
+  return hasOnlyTerminals && isAllMelds(tiles);
 };

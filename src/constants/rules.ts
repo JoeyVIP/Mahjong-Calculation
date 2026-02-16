@@ -30,6 +30,11 @@ export const DEFAULT_GAME_SETTINGS = {
   fanAmount: 20,
   isKongWin: false,
   isRobbingKong: false,
+  isLastTileDraw: false,
+  isLastTileDiscard: false,
+  waitingType: 'none' as const,
+  specialWin: 'none' as const,
+  flowerCount: 0,
 };
 
 // 台種配置

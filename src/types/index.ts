@@ -15,6 +15,12 @@ export interface Tile {
   display: string; // 顯示文字
 }
 
+// 聽牌方式
+export type WaitingType = 'none' | 'single' | 'middle' | 'edge';
+
+// 特殊胡法
+export type SpecialWin = 'none' | 'heaven' | 'earth' | 'human';
+
 // 遊戲設定狀態
 export interface GameSettings {
   roundWind: Wind; // 圈風
@@ -27,6 +33,11 @@ export interface GameSettings {
   fanAmount: number; // 每台金額
   isKongWin: boolean; // 是否槓上開花
   isRobbingKong: boolean; // 是否搶槓
+  isLastTileDraw: boolean; // 是否海底撈月（自摸最後一張）
+  isLastTileDiscard: boolean; // 是否河底撈魚（別人打出最後一張）
+  waitingType: WaitingType; // 聽牌方式
+  specialWin: SpecialWin; // 特殊胡法（天地人胡）
+  flowerCount: number; // 花牌數量（0-8）
 }
 
 // 牌的位置類型
